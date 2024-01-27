@@ -33,6 +33,11 @@ To run exe
 ./build/apps/app
 ```
 
+To build and test
+```
+cmake --build build && cmake --build build --target test
+```
+
 To build docs (requires Doxygen, output in `build/docs/html`):
 
 ```bash
