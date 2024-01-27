@@ -5,9 +5,13 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(catch)
 
 add_executable(testlib testlib.cpp)
+add_executable(testCoordinatelib testCoordinatelib.cpp)
 
 target_compile_features(testlib PRIVATE cxx_std_17)
+target_compile_features(testCoordinatelib PRIVATE cxx_std_17)
 
 target_link_libraries(testlib PRIVATE math_library Catch2::Catch2)
+target_link_libraries(testCoordinatelib PRIVATE coordinate_library Catch2::Catch2)
 
 add_test(NAME testlibtest COMMAND testlib)
+add_test(NAME testCoordinatelibtest COMMAND testCoordinatelib)
