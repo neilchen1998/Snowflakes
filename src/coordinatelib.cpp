@@ -16,6 +16,11 @@ double Point::Magnitude() const
     return sqrt((x) * (x) + (y) * (y));
 }
 
+Point Point::Unit() const
+{
+    return Point(this->x / Magnitude(), this->y / Magnitude());
+}
+
 Point Point::operator+(const Point& p)
 {
     return Point(this->x + p.x, this->y + p.y);
@@ -63,4 +68,14 @@ Point operator*(double c, const Point& p)
 double Point::operator*(const Point& p) const
 {
     return this->x * p.x + this->y * p.y;
+}
+
+bool operator==(const Point& a, const Point& b)
+{
+    return (a.x == b.x) && (a.y == b.y);
+}
+
+bool operator!=(const Point& a, const Point& b)
+{
+    return (a.x != b.x) || (a.y != b.y);
 }

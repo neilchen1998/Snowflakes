@@ -20,6 +20,10 @@ struct Point
     /// @return 
     double Magnitude() const;
 
+    /// @brief Get the unit vector
+    /// @return the unit vector
+    Point Unit() const;
+
     /// @brief Adding two points
     /// @param p the other point
     /// @return the sum of the two points
@@ -61,5 +65,17 @@ struct Point
 /// @param p the other point
 /// @return
 Point operator*(double c, const Point& p);
+
+/// @brief Checks if two points are the same
+/// @param a point A
+/// @param b point B
+/// @return true if point A is equal to point B
+bool operator==(const Point& a, const Point& b);
+
+/// @brief Compares two points
+/// @param a point A
+/// @param b point B
+/// @return true if point A is not equal to point B
+bool operator!=(const Point& a, const Point& b);
 
 #endif  // INCLUDE_COORDINATE_COORDINATELIB_H_

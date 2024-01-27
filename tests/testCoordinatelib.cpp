@@ -40,6 +40,13 @@ TEST_CASE( "Coordinate", "Point" )
         REQUIRE (d == Approx(expectedM));
     }
 
+    SECTION("Univt Vector")
+    {
+        auto u = p1.Unit();
+        REQUIRE (u.x == Approx(x1 / expectedM));
+        REQUIRE (u.y == Approx(y1 / expectedM));
+    }
+
     constexpr double x3 = 2.59, y3 = 21.4;
     Point p3(x3, y3);
 
@@ -147,5 +154,23 @@ TEST_CASE( "Coordinate", "Point" )
         // ensures that we can multiple a negative scalar
         REQUIRE (p6.x == Approx(x6 * c * -c));
         REQUIRE (p6.y == Approx(y6 * c * -c));
+    }
+
+    SECTION("Comparing Two Points")
+    {
+        // same point
+        auto p6_copied = Point(x6, y6);
+        REQUIRE (p6 == p6_copied);
+
+        // different x and y values
+        REQUIRE (p6 != p5);
+
+        // same x value, different y value
+        auto p6_x = Point(x6, 1.2);
+        REQUIRE (p6 != p6_x);
+        
+        // same y value, different x value
+        auto p6_y = Point(4.9, y6);
+        REQUIRE (p6 != p6_y);
     }
 }
