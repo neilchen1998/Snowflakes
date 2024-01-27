@@ -4,7 +4,7 @@ file(GLOB COORDINATE_HEADER_LIST CONFIGURE_DEPENDS "${Snowflake_SOURCE_DIR}/incl
 
 add_library(math_library mathlib.cpp ${MATH_HEADER_LIST})
 add_library(graph_library graphlib.cpp ${GRAPH_HEADER_LIST})
-add_library(coordinate_library coordinatelib.cpp ${COORDINATE_HEADER_LIST})
+add_library(coordinate_library vectorlib.cpp ${COORDINATE_HEADER_LIST})
 
 target_include_directories(math_library PUBLIC ../include)
 target_include_directories(graph_library PUBLIC ../include)

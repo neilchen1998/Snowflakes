@@ -5,7 +5,6 @@
 #include <catch2/catch.hpp>
 
 #include "math/mathlib.hpp"
-#include "coordinate/coordinatelib.hpp"
 
 TEST_CASE( "Boost Normal Distribution", "[main]" )
 {
@@ -64,13 +63,4 @@ TEST_CASE( "Boost Normal Distribution", "[main]" )
         REQUIRE (threeSDCnt >= expectedThreeSDCntLow);
         REQUIRE (threeSDCnt <= (expectedThreeSDCnt + TOLERANCE));
     }
-
-    // SECTION("Can Create")
-    // {
-    //     constexpr double x = 1.2, y = 2.4;
-    //     // TODO: fix the linker error
-    //     Point p(1.2, 2.4);
-    //     REQUIRE (p.x == Approx(x));
-    //     REQUIRE (p.y == Approx(y));
-    // }
 }
