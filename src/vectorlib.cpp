@@ -21,12 +21,12 @@ Vector Vector::Unit() const
     return Vector(this->x / Magnitude(), this->y / Magnitude());
 }
 
-Vector Vector::operator+(const Vector& p)
+Vector Vector::operator+(const Vector& p) const
 {
     return Vector(this->x + p.x, this->y + p.y);
 }
 
-Vector Vector::operator-(const Vector& p)
+Vector Vector::operator-(const Vector& p) const
 {
     return Vector(this->x - p.x, this->y - p.y);
 }

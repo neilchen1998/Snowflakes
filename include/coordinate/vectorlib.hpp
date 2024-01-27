@@ -32,12 +32,12 @@ struct Vector
     /// @brief Adding two Vectors
     /// @param p the other Vector
     /// @return the sum of the two Vectors
-    Vector operator+(const Vector& p);
+    Vector operator+(const Vector& p) const;
 
     /// @brief Subtracting two Vectors
     /// @param p the other Vector
     /// @return the difference of the two Vectors
-    Vector operator-(const Vector& p);
+    Vector operator-(const Vector& p) const;
 
     /// @brief Adding two Vectors
     /// @param p the other Vector
