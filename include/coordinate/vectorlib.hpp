@@ -1,7 +1,7 @@
 // reference: https://cplusplus.com/forum/beginner/165205/
 
-#ifndef INCLUDE_COORDINATE_COORDINATELIB_H_
-#define INCLUDE_COORDINATE_COORDINATELIB_H_
+#ifndef INCLUDE_COORDINATE_VECTORLIB_H_
+#define INCLUDE_COORDINATE_VECTORLIB_H_
 
 struct Vector
 {
@@ -83,4 +83,4 @@ bool operator==(const Vector& a, const Vector& b);
 /// @return true if Vector A is not equal to Vector B
 bool operator!=(const Vector& a, const Vector& b);
 
-#endif  // INCLUDE_COORDINATE_COORDINATELIB_H_
+#endif  // INCLUDE_COORDINATE_VECTORLIB_H_
