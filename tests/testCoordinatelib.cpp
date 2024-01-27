@@ -4,6 +4,7 @@
 #include <catch2/catch.hpp>
 
 #include "coordinate/vectorlib.hpp"
+#include "coordinate/generatorlib.hpp"
 
 TEST_CASE( "Coordinate", "Vector" )
 {   
@@ -163,5 +164,36 @@ TEST_CASE( "Coordinate", "Vector" )
         // same y value, different x value
         auto v6_y = Vector(4.9, y6);
         REQUIRE (v6 != v6_y);
+    }
+}
+
+TEST_CASE( "GeneratorLib", "Generator" )
+{
+    constexpr double x1 = 0, y1 = 0;
+    constexpr double radiusStart = 1;
+    Vector v1(x1, y1);
+
+    SECTION("Generate a New Circle")
+    {
+        // checks the center of the new circle
+        auto c2 = GenerateNextCircle(v1, radiusStart);
+        REQUIRE (c2.x == Approx(2.0));
+        REQUIRE (c2.y == Approx(0.0));
+    }
+
+    SECTION("Generate a New Circle 2")
+    {
+        // checks the center of the new circle
+        constexpr double radiusNew = 4;
+        constexpr double ux = 3, uy = 4;
+        Vector dir(ux, uy);
+        auto c2 = GenerateNextCircle(v1, radiusStart, dir, radiusNew);
+        REQUIRE (c2.x == Approx(3.0));
+        REQUIRE (c2.y == Approx(4.0));
+
+        // check the distance of the two centers
+        Vector r = c2 - v1;
+        auto d = radiusStart + radiusNew;
+        REQUIRE (d == Approx(r.Magnitude()));
     }
 }
