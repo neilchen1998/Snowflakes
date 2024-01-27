@@ -15,3 +15,52 @@ double Point::Magnitude() const
 {
     return sqrt((x) * (x) + (y) * (y));
 }
+
+Point Point::operator+(const Point& p)
+{
+    return Point(this->x + p.x, this->y + p.y);
+}
+
+Point Point::operator-(const Point& p)
+{
+    return Point(this->x - p.x, this->y - p.y);
+}
+
+Point Point::operator+=(const Point& p)
+{
+    this->x += p.x;
+    this->y += p.y;
+
+    return *this;
+}
+
+Point Point::operator-=(const Point& p)
+{
+    this->x -= p.x;
+    this->y -= p.y;
+
+    return *this;
+}
+
+Point Point::operator*(double c)
+{
+    return Point(this->x * c, this->y * c);
+}
+
+Point Point::operator*=(double c)
+{
+    this->x *= c;
+    this->y *= c;
+
+    return *this;
+}
+
+Point operator*(double c, const Point& p)
+{
+    return Point(p.x * c, p.y * c);
+}
+
+double Point::operator*(const Point& p) const
+{
+    return this->x * p.x + this->y * p.y;
+}

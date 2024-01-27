@@ -39,4 +39,113 @@ TEST_CASE( "Coordinate", "Point" )
         auto d = p1.Magnitude();
         REQUIRE (d == Approx(expectedM));
     }
+
+    constexpr double x3 = 2.59, y3 = 21.4;
+    Point p3(x3, y3);
+
+    SECTION("Adding Two Vectors")
+    {
+        auto ret = p3 + p2;
+
+        // ensures that new p3 equals to old p3 plus p2
+        REQUIRE (ret.x == Approx(x3 + x2));
+        REQUIRE (ret.y == Approx(y3 + y2));
+
+        // ensures that p2 remains the same
+        REQUIRE (p2.x == Approx(x2));
+        REQUIRE (p2.y == Approx(y2));
+
+        // ensures that p3 remains the same
+        REQUIRE (p3.x == Approx(x3));
+        REQUIRE (p3.y == Approx(y3));
+    }
+
+    SECTION("Subtracting Two Vectors")
+    {
+        auto ret = p3 - p2;
+
+        // ensures that new p3 equals to old p3 plus p2
+        REQUIRE (ret.x == Approx(x3 - x2));
+        REQUIRE (ret.y == Approx(y3 - y2));
+
+        // ensures that p2 remains the same
+        REQUIRE (p2.x == Approx(x2));
+        REQUIRE (p2.y == Approx(y2));
+
+        // ensures that p3 remains the same
+        REQUIRE (p3.x == Approx(x3));
+        REQUIRE (p3.y == Approx(y3));
+    }
+
+    constexpr double x4 = 2.59, y4 = 21.4;
+    Point p4(x4, y4);
+
+    SECTION("Adding Two Vectors (+=)")
+    {
+        p4 += p2;
+
+        // ensures that new p3 equals to old p3 plus p2
+        REQUIRE (p4.x == Approx(x4 + x2));
+        REQUIRE (p4.y == Approx(y4 + y2));
+
+        // ensures that p2 remains the same
+        REQUIRE (p2.x == Approx(x2));
+        REQUIRE (p2.y == Approx(y2));
+    }
+
+    constexpr double x5 = 52.2, y5 = 728.4;
+    Point p5(x5, y5);
+
+    SECTION("Subtracting Two Vectors (-=)")
+    {
+        p5 -= p2;
+
+        // ensures that new p3 equals to old p3 plus p2
+        REQUIRE (p5.x == Approx(x5 - x2));
+        REQUIRE (p5.y == Approx(y5 - y2));
+
+        // ensures that p2 remains the same
+        REQUIRE (p2.x == Approx(x2));
+        REQUIRE (p2.y == Approx(y2));
+    }
+
+    constexpr double x6 = 1.2, y6 = 94.4;
+    constexpr double c = 4.2;
+    Point p6(x6, y6);
+
+    SECTION("Multiplying a Scalar")
+    {
+        auto ret = p6 * c;
+
+        // ensures that we can multiple a positive scalar
+        REQUIRE (ret.x == Approx(x6 * c));
+        REQUIRE (ret.y == Approx(y6 * c));
+
+        ret = p6 * -c;
+
+        // ensures that we can multiple a negative scalar
+        REQUIRE (ret.x == Approx(x6 * -c));
+        REQUIRE (ret.y == Approx(y6 * -c));
+
+        ret = c * p6;
+
+        // ensures that we can multiple a negative scalar
+        REQUIRE (ret.x == Approx(x6 * c));
+        REQUIRE (ret.y == Approx(y6 * c));
+    }
+
+    SECTION("Multiplying a Scalar (*=)")
+    {
+        p6 *= c;
+
+        // ensures that we can multiple a positive scalar
+        REQUIRE (p6.x == Approx(x6 * c));
+        REQUIRE (p6.y == Approx(y6 * c));
+
+        p6 *= -c;
+
+        // ensures that we can multiple a negative scalar
+        REQUIRE (p6.x == Approx(x6 * c * -c));
+        REQUIRE (p6.y == Approx(y6 * c * -c));
+    }
 }
