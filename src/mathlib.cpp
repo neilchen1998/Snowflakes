@@ -11,3 +11,11 @@ double boost_normal_distribution(double mean, double sd)
 
     return var_nor();
 }
+
+int boost_uniform_int_distribution(int high, int low)
+{
+    static boost::mt19937 rng; // random number generator, declared as static
+    boost::random::uniform_int_distribution<> uni(low, high);
+
+    return uni(rng);
+}
