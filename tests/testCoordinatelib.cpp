@@ -6,6 +6,8 @@
 #include "coordinate/vectorlib.hpp"
 #include "coordinate/generatorlib.hpp"
 
+#define PI 3.14159265
+
 TEST_CASE( "Coordinate", "Vector" )
 {   
     Vector v0 = Vector();
@@ -164,6 +166,24 @@ TEST_CASE( "Coordinate", "Vector" )
         // same y value, different x value
         auto v6_y = Vector(4.9, y6);
         REQUIRE (v6 != v6_y);
+    }
+
+    SECTION("Rotate a Vector")
+    {
+        constexpr double x7 = 1, y7 = 0;
+        const double l = sqrt(x7 * x7 + y7 * y7);
+        constexpr double theta = 30 * PI / 180;
+        Vector v7(x7, y7);
+
+        v7.Rotate(theta);
+
+        REQUIRE (v7.x == Approx(cos(theta) * l));
+        REQUIRE (v7.y == Approx(sin(theta) * l));
+
+        auto ret = Vector::Rotate(v7, -theta);
+
+        REQUIRE (ret.x == Approx(x7));
+        REQUIRE (ret.y == Approx(y7));
     }
 }
 
