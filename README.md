@@ -33,6 +33,11 @@ To run exe
 ./build/apps/app
 ```
 
+To build and run exe
+```
+cmake --build build && ./build/apps/app
+```
+
 To build and test
 ```
 cmake --build build && cmake --build build --target test
