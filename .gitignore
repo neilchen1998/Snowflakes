@@ -1,5 +1,8 @@
 # build folder generated from CMake
 build/*
 
+# images rendered by app
+outputs/*
+
 # vscode
 .vscode/*
