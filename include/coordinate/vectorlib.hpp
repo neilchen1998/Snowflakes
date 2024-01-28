@@ -5,15 +5,14 @@
 
 struct Vector
 {
-    /// @brief 
     double x, y;
 
     /// @brief Contructor
     Vector();
 
     /// @brief Contructor
-    /// @param  x
-    /// @param  y
+    /// @param  x x value
+    /// @param  y y value
     Vector(double x, double y);
 
     /// @brief 
@@ -21,8 +20,8 @@ struct Vector
     /// @return 
     double Distance(const Vector& other);
 
-    /// @brief 
-    /// @return 
+    /// @brief The length of itself
+    /// @return the length
     double Magnitude() const;
 
     /// @brief Get the unit vector
@@ -30,24 +29,24 @@ struct Vector
     Vector Unit() const;
 
     /// @brief Adding two Vectors
-    /// @param p the other Vector
+    /// @param other the other Vector
     /// @return the sum of the two Vectors
-    Vector operator+(const Vector& p) const;
+    Vector operator+(const Vector& other) const;
 
     /// @brief Subtracting two Vectors
-    /// @param p the other Vector
+    /// @param other the other Vector
     /// @return the difference of the two Vectors
-    Vector operator-(const Vector& p) const;
+    Vector operator-(const Vector& other) const;
 
     /// @brief Adding two Vectors
-    /// @param p the other Vector
+    /// @param other the other Vector
     /// @return the sum of the two Vectors
-    Vector operator+=(const Vector& p);
+    Vector operator+=(const Vector& other);
 
     /// @brief Subtracting two Vectors
-    /// @param p the other Vector
+    /// @param other the other Vector
     /// @return the difference of the two Vectors
-    Vector operator-=(const Vector& p);
+    Vector operator-=(const Vector& other);
 
     /// @brief Multiplying a Vector with a scalar value
     /// @param c a scalar
@@ -60,16 +59,16 @@ struct Vector
     Vector operator*=(double c);
 
     /// @brief Performing inner product of two Vectors
-    /// @param p the other Vector
+    /// @param other the other Vector
     /// @return the inner product of the two Vectors
     double operator*(const Vector& p) const;
 };
 
-/// @brief To make c * p work
+/// @brief To make c * other work
 /// @param c a scalar
-/// @param p the other Vector
+/// @param other the other Vector
 /// @return
-Vector operator*(double c, const Vector& p);
+Vector operator*(double c, const Vector& other);
 
 /// @brief Checks if two Vectors are the same
 /// @param a Vector A
