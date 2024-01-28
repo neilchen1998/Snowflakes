@@ -15,9 +15,13 @@ struct Vector
     /// @param  y y value
     Vector(double x, double y);
 
-    /// @brief 
-    /// @param other 
-    /// @return 
+    /// @brief Copy constructor
+    /// @param other the other vector
+    Vector(const Vector& other);
+
+    /// @brief The Euclidean distance between itself and the other vector
+    /// @param other the other vector
+    /// @return the Euclidean distance between the two
     double Distance(const Vector& other);
 
     /// @brief The length of itself
@@ -27,6 +31,15 @@ struct Vector
     /// @brief Get the unit vector
     /// @return the unit vector
     Vector Unit() const;
+
+    /// @brief Rotating itself with theta
+    /// @param theta the rotation angle in radian
+    void Rotate(const double theta);
+
+    /// @brief Rotating a vector with theta
+    /// @param theta the rotation angle in radian
+    /// @return the new vector after rotation
+    static Vector Rotate(const Vector& v, const double theta);
 
     /// @brief Adding two Vectors
     /// @param other the other Vector
@@ -61,7 +74,12 @@ struct Vector
     /// @brief Performing inner product of two Vectors
     /// @param other the other Vector
     /// @return the inner product of the two Vectors
-    double operator*(const Vector& p) const;
+    double operator*(const Vector& other) const;
+
+    /// @brief Overloaded assignment operator
+    /// @param other 
+    /// @return 
+    Vector& operator=(const Vector& other);
 };
 
 /// @brief To make c * other work

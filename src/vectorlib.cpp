@@ -2,9 +2,13 @@
 
 #include "coordinate/vectorlib.hpp"
 
+#define PI 3.14159265
+
 Vector::Vector() : x(0), y(0) {}
 
 Vector::Vector(double x, double y) : x(x), y(y) {}
+
+Vector::Vector(const Vector& other) : x(other.x), y(other.y) {}
 
 double Vector::Distance(const Vector& other)
 {
@@ -19,6 +23,20 @@ double Vector::Magnitude() const
 Vector Vector::Unit() const
 {
     return Vector(this->x / Magnitude(), this->y / Magnitude());
+}
+
+void Vector::Rotate(const double theta)
+{
+    auto newX = cos(theta) * x - sin(theta) * y;
+    auto newY = sin(theta) * x + cos(theta) * y;
+
+    this->x = newX;
+    this->y = newY;
+}
+
+Vector Vector::Rotate(const Vector& v, const double theta)
+{
+    return Vector(cos(theta) * v.x - sin(theta) * v.y, sin(theta) * v.x + cos(theta) * v.y);
 }
 
 Vector Vector::operator+(const Vector& p) const
@@ -68,6 +86,17 @@ Vector operator*(double c, const Vector& p)
 double Vector::operator*(const Vector& p) const
 {
     return this->x * p.x + this->y * p.y;
+}
+
+Vector& Vector::operator=(const Vector& other)
+{
+    // self-assignment guard
+    if (this == &other)
+        return *this;
+    
+    this->x = other.x;
+    this->y = other.y;
+    return *this;
 }
 
 bool operator==(const Vector& a, const Vector& b)
