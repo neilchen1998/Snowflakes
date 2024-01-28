@@ -15,7 +15,7 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     set(CMAKE_CXX_EXTENSIONS OFF)
 
     # compiler flags
-    # add_compile_options(-Wall -Wextra -pedantic -O3)
+    add_compile_options(-Wall -Wextra -pedantic -O3)
 
     # uses CTest
     # NOTE: this needs to be done in the main CMakeLists
