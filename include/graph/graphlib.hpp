@@ -19,14 +19,20 @@ struct Circle
     Circle(Vector c, unsigned char r, unsigned char g, unsigned char b, unsigned int radius) : c(c), r(r), g(g), b(b), radius(radius) {}
 };
 
-/// @brief Display the image using OpenCV
+/// @brief Displays the image using OpenCV
 /// @param windowName the name of the window
 /// @param img the image (OpenCV format)
 void DisplayImage(const std::string& windowName, cv::Mat& img);
 
-/// @brief Draw all circles in the vector container on the canvas
+/// @brief Draws all circles in the vector container on the canvas
 /// @param img the canvas
 /// @param circles a vector of circles
 void DrawAllCircles(cv::Mat& img, const std::vector<Circle>& circles);
+
+/// @brief Saves the image using OpenCV
+/// @param filename the filename
+/// @param img the image
+/// @return true if the file has been saved successfully
+bool SaveImage(const std::string& filename, cv::Mat& img);
 
 #endif  // INCLUDE_GRAPH_GRAPHLIB_H_
