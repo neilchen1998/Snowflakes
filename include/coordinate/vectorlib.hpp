@@ -41,6 +41,18 @@ struct Vector
     /// @return the new vector after rotation
     static Vector Rotate(const Vector& v, const double theta);
 
+    /// @brief Calculate the projected vector of vector v along vector w
+    /// @param v the original vector
+    /// @param w the norm vector
+    /// @return the projected vector
+    static Vector Project(const Vector& v, const Vector& w);
+
+    /// @brief Calculate the mirrored vector of vector v along vector w
+    /// @param v the original vector
+    /// @param w the norm vector
+    /// @return the new vector after mirrored
+    static Vector Mirror(const Vector& v, const Vector& w);
+
     /// @brief Adding two Vectors
     /// @param other the other Vector
     /// @return the sum of the two Vectors

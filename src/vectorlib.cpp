@@ -39,6 +39,16 @@ Vector Vector::Rotate(const Vector& v, const double theta)
     return Vector(cos(theta) * v.x - sin(theta) * v.y, sin(theta) * v.x + cos(theta) * v.y);
 }
 
+Vector Vector::Project(const Vector& v, const Vector& w)
+{
+    return ((v * w) / w.Magnitude()) * w.Unit();
+}
+
+Vector Vector::Mirror(const Vector& v, const Vector& w)
+{
+    return 2 * Vector::Project(v, w) - v;
+}
+
 Vector Vector::operator+(const Vector& p) const
 {
     return Vector(this->x + p.x, this->y + p.y);

@@ -199,6 +199,37 @@ TEST_CASE( "Coordinate", "Vector" )
         REQUIRE (v7.Magnitude() == Approx(l));
     }
 
+    SECTION("Projecting a Vector Along Another Vector")
+    {
+        constexpr double x7 = 10, y7 = 10;
+        Vector v7(x7, y7);
+
+        // projects along the x axis
+        auto ret = Vector::Project(v1, vX);
+        REQUIRE (ret.x == Approx(x1));
+        REQUIRE (ret.y == Approx(0));
+
+        // projects along the y axis
+        ret = Vector::Project(v1, vY);
+        REQUIRE (ret.x == Approx(0));
+        REQUIRE (ret.y == Approx(y1));
+
+        // projects along a perpenticular axis
+        Vector w = Vector(-10, 10);
+        ret = Vector::Project(v7, w);
+        REQUIRE (ret.x == Approx(0.0));
+        REQUIRE (ret.y == Approx(0.0));
+    }
+
+    SECTION("Mirroring Along an Axis")
+    {
+        constexpr double x = 10, y = 10;
+        Vector v(x, y);
+
+        // mirrors along the x axis
+        auto ret = Vector::Mirror(v, vX);
+        auto ans = Vector::Rotate(v, -90 * PI / 180);
+        REQUIRE (ret.x == Approx(ans.x));
         REQUIRE (ret.y == Approx(ans.y));
     }
 }
