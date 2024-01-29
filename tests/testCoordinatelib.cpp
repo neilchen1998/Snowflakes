@@ -11,6 +11,8 @@
 TEST_CASE( "Coordinate", "Vector" )
 {   
     Vector v0 = Vector();
+    Vector vX = Vector(1, 0);
+    Vector vY = Vector(0, 1);
     SECTION("Can Create Using the Default Constructor")
     {
         REQUIRE (v0.x == Approx(0));
@@ -154,6 +156,9 @@ TEST_CASE( "Coordinate", "Vector" )
     {
         double ret = v1 * v2;
         REQUIRE (ret == Approx(x1 * x2 + y1 * y2));
+
+        ret = vX * vY;
+        REQUIRE (ret == Approx(0.0));
     }
 
     SECTION("Comparing Two Vectors")
