@@ -19,17 +19,21 @@
 #define PI 3.14159265
 #define DEG_TO_RAD(deg) ((deg) * PI / 180.0 )
 
+#define DEBUG_MODE 1
+
 int main()
 {   
     bool canSave = true;
-    constexpr unsigned char NUM_RENDERS = 10;
+    constexpr unsigned char NUM_RENDERS = (DEBUG_MODE) ? 5 : 10;
     // renders N images
     for (unsigned char render = 0; render < NUM_RENDERS; render++)
     {
         // creates a black canvas
         cv::Mat img(ROWS, COLS, CV_8UC3, CV_RGB(0, 0, 0));
         constexpr size_t NUM_CIRCLES = 50;
-        std::vector<Circle> circles(NUM_CIRCLES * 12);
+        constexpr unsigned char NUM_SPINS = 12;
+        constexpr unsigned char THETA = 360 / NUM_SPINS;
+        std::vector<Circle> circles(NUM_CIRCLES * NUM_SPINS);
         circles[0].c = Vector(0, 0);
         
         // generates particles
@@ -38,17 +42,17 @@ int main()
             Vector start = circles[i - 1].c;
             int radiusStart = circles[i - 1].radius;
             Vector dir = Vector(1, boost_normal_distribution(1));
-            int radiusNew = boost_uniform_int_distribution(10);
+            int radiusNew = boost_uniform_int_distribution(7);
             Vector cNew = GenerateNextCircle(start, radiusStart, dir, radiusNew);
             circles[i].c = cNew;
             circles[i].radius = radiusNew;
         }
 
-        for (size_t spin = 1; spin < 12; spin++)
+        for (size_t spin = 1; spin < NUM_SPINS; spin++)
         {
             for (size_t i = 0; i < NUM_CIRCLES; i++)
             {
-                circles[spin * NUM_CIRCLES + i].c = Vector::Rotate(circles[i].c, DEG_TO_RAD(30*spin));
+                circles[spin * NUM_CIRCLES + i].c = Vector::Rotate(circles[i].c, DEG_TO_RAD(THETA*spin));
                 circles[spin * NUM_CIRCLES + i].radius = circles[i].radius;
             }
         }
@@ -56,12 +60,18 @@ int main()
         // draws all circles on the canvas
         DrawAllCircles(img, circles);
 
-        // save image
-        std::string filepath("outputs/");
-        std::string filename = "image-" + std::to_string(render) + ".jpg";
-        canSave = SaveImages(filepath + filename, img);
-        if (!canSave)
-            return EXIT_FAILURE;
+        #if DEBUG_MODE
+
+            DisplayImage("image", img);
+
+        #else
+            // save image
+            std::string filepath("outputs/");
+            std::string filename = "image-" + std::to_string(render) + ".jpg";
+            canSave = SaveImage(filepath + filename, img);
+            if (!canSave)
+                return EXIT_FAILURE;
+        #endif
     }
 
     return EXIT_SUCCESS;
