@@ -181,15 +181,20 @@ TEST_CASE( "Coordinate", "Vector" )
         constexpr double theta = 30 * PI / 180;
         Vector v7(x7, y7);
 
+        // rotates it by theta
         v7.Rotate(theta);
-
         REQUIRE (v7.x == Approx(cos(theta) * l));
         REQUIRE (v7.y == Approx(sin(theta) * l));
+        REQUIRE (v7.Magnitude() == Approx(l));
 
+        // rotates back
         auto ret = Vector::Rotate(v7, -theta);
-
         REQUIRE (ret.x == Approx(x7));
         REQUIRE (ret.y == Approx(y7));
+        REQUIRE (v7.Magnitude() == Approx(l));
+    }
+
+        REQUIRE (ret.y == Approx(ans.y));
     }
 }
 
