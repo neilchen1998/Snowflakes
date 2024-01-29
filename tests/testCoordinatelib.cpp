@@ -150,6 +150,12 @@ TEST_CASE( "Coordinate", "Vector" )
         REQUIRE (v6.y == Approx(y6 * c * -c));
     }
 
+    SECTION("Performing Inner Product of Two Vectors")
+    {
+        double ret = v1 * v2;
+        REQUIRE (ret == Approx(x1 * x2 + y1 * y2));
+    }
+
     SECTION("Comparing Two Vectors")
     {
         // same vector
