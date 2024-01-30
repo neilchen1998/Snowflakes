@@ -1,4 +1,5 @@
 #include <filesystem>
+#include <algorithm>
 
 #include "opencv2/imgcodecs.hpp"
 #include "opencv2/highgui.hpp"
@@ -12,6 +13,9 @@
 #define COLS 1024
 #define CENTER (ROWS/2)
 
+#define PI 3.14159265
+#define DEG_TO_RAD(deg) ((deg) * PI / 180.0 )
+
 void DisplayImage(const std::string& windowName, cv::Mat& img)
 {
     cv::imshow(windowName, img);
@@ -20,13 +24,50 @@ void DisplayImage(const std::string& windowName, cv::Mat& img)
     return;
 }
 
-void DrawAllCircles(cv::Mat& img, const std::vector<Circle>& circles)
+void DrawCircles(cv::Mat& img, const std::vector<Circle>& circles)
 {
     auto itr = circles.cbegin();
     while (itr != circles.cend())
     {
         cv::circle(img, cv::Point(itr->c.x + CENTER, itr->c.y + CENTER), itr->radius, CV_RGB(itr->r, itr->g, itr->b), FILLED);
         ++itr;
+    }
+}
+
+void DrawRotatedCircles(cv::Mat& img, const std::vector<Circle>& circles, const int theta, const int spin)
+{
+    auto itr = circles.cbegin();
+    while (itr != circles.cend())
+    {
+        auto focus = Vector::Rotate(itr->c, DEG_TO_RAD(theta * spin));
+        cv::circle(img, cv::Point(focus.x + CENTER, focus.y + CENTER), itr->radius, CV_RGB(itr->r, itr->g, itr->b), FILLED);
+        ++itr;
+    }
+}
+
+void RenderImage(cv::Mat& img, const std::vector<Circle>& circles, const int numRotations, const Vector& mirror)
+{
+    const unsigned char THETA = 360 / numRotations;
+
+    // draws the original circles
+    for (int rotation = 0; rotation < numRotations; rotation++)
+    {
+        DrawRotatedCircles(img, circles, THETA, rotation);
+    }
+
+    // calculates the circles mirror w.r.t. the mirror vector
+    std::vector<Circle> tmp(circles.size());
+    std::transform(circles.begin(), circles.end(), tmp.begin(), [&](const Circle& circle)
+    {
+        Circle mirroredCircle = circle;
+        mirroredCircle.c = Vector::Mirror(circle.c, mirror);
+        return mirroredCircle;
+    });
+
+    // draw the mirrored circles
+    for (int rotation = 0; rotation < numRotations; rotation++)
+    {
+        DrawRotatedCircles(img, tmp, THETA, rotation);
     }
 }
 
