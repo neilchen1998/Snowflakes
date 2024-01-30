@@ -1,12 +1,19 @@
-This is an example project using CMake.
+# Snowflakes
+
+This project builds snowflakes so that Santa Clause and his elfs can focus on sending gifts to kids instead of making snowflakes.
+
+## Requirements
 
 The requirements are:
 
-- CMake 3.11 or better; 3.14+ highly recommended.
+- CMake 3.11 or better; 3.14+ highly recommended
 - A C++17 compatible compiler
-- The Boost libararies (header only part is fine)
+- The Boost libararies
 - Git
-- Doxygen (optional)
+- OpenCV
+- Doxygen (optional, highly recommended)
+
+## Instructions
 
 To configure:
 
