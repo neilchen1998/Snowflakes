@@ -41,7 +41,7 @@ void DrawCircles(cv::Mat& img, const std::vector<Circle>& circles);
 /// @param circles the vector container contains all circles
 /// @param numRotations the number of rotations
 /// @param mirror the mirror vector
-void RenderImage(cv::Mat& img, const std::vector<Circle>& circles, const int numRotations, const Vector& mirror);
+void RenderImage(cv::Mat& img, const std::vector<Circle>& circles, const int numRotations, const Vector& mirror = Vector(1, 1));
 
 /// @brief Saves the image using OpenCV
 /// @param filename the filename
