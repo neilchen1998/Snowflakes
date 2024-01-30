@@ -36,6 +36,11 @@ void DisplayImage(const std::string& windowName, cv::Mat& img);
 /// @param circles a vector of circles
 void DrawCircles(cv::Mat& img, const std::vector<Circle>& circles);
 
+/// @brief Draw the backbone of a snowflake
+/// @param img the canvas
+/// @param numRotations the number of rotations
+void DrawBackbone(cv::Mat& img, const Vector& v, const int length, const int numRotations);
+
 /// @brief Renders an image of circles and mirrored circles
 /// @param img the canvas
 /// @param circles the vector container contains all circles

@@ -34,6 +34,16 @@ void DrawCircles(cv::Mat& img, const std::vector<Circle>& circles)
     }
 }
 
+void DrawBackbone(cv::Mat& img, const Vector& v, const int length, const int numRotations)
+{
+    const unsigned char THETA = 360 / numRotations;
+    for (int rotation = 0; rotation < numRotations; rotation++)
+    {
+        Vector dir = length * Vector::Rotate(v, DEG_TO_RAD(THETA * rotation));
+        cv::line(img, cv::Point(CENTER, CENTER), cv::Point(dir.x + CENTER, dir.y + CENTER), CV_RGB(153, 204, 255), 5);
+    }
+}
+
 void DrawRotatedCircles(cv::Mat& img, const std::vector<Circle>& circles, const int theta, const int spin)
 {
     auto itr = circles.cbegin();
