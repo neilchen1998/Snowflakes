@@ -7,6 +7,9 @@
 #include <opencv2/core/base.hpp>
 #include "coordinate/vectorlib.hpp"
 
+#define WHITE CV_RGB(255, 255, 255)
+#define LIGHT_SKY_BLUE CV_RGB(153, 204, 255)
+
 struct Circle
 {
     Vector c;

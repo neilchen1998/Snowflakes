@@ -31,8 +31,8 @@ int main()
         // creates a black canvas
         cv::Mat img(ROWS, COLS, CV_8UC3, CV_RGB(0, 0, 0));
         constexpr size_t NUM_CIRCLES = 50;
-        constexpr unsigned char NUM_SPINS = 12;
-        std::vector<Circle> circles(NUM_CIRCLES * 2 * NUM_SPINS);
+        constexpr unsigned char NUM_ARMS = 6;
+        std::vector<Circle> circles(NUM_CIRCLES * 2 * NUM_ARMS);
         circles[0].c = Vector(0, 0);
         
         // generates particles
@@ -48,8 +48,8 @@ int main()
         }
 
         // draws all circles on the canvas
-        // RenderImage(img, circles, NUM_SPINS);
-        RenderImage(img, circles, NUM_SPINS);
+        RenderImage(img, circles, NUM_ARMS);
+        DrawBackbone(img, Vector(1, 1), 250, NUM_ARMS);
 
         #if DEBUG_MODE
 

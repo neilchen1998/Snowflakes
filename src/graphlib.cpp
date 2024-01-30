@@ -34,13 +34,13 @@ void DrawCircles(cv::Mat& img, const std::vector<Circle>& circles)
     }
 }
 
-void DrawBackbone(cv::Mat& img, const Vector& v, const int length, const int numRotations)
+void DrawBackbone(cv::Mat& img, const Vector& v, const int length, const int numArms)
 {
-    const unsigned char THETA = 360 / numRotations;
-    for (int rotation = 0; rotation < numRotations; rotation++)
+    const unsigned char THETA = 360 / numArms;
+    for (int rotation = 0; rotation < numArms; rotation++)
     {
         Vector dir = length * Vector::Rotate(v, DEG_TO_RAD(THETA * rotation));
-        cv::line(img, cv::Point(CENTER, CENTER), cv::Point(dir.x + CENTER, dir.y + CENTER), CV_RGB(153, 204, 255), 5);
+        cv::line(img, cv::Point(CENTER, CENTER), cv::Point(dir.x + CENTER, dir.y + CENTER), LIGHT_SKY_BLUE, 5);
     }
 }
 
@@ -55,12 +55,12 @@ void DrawRotatedCircles(cv::Mat& img, const std::vector<Circle>& circles, const 
     }
 }
 
-void RenderImage(cv::Mat& img, const std::vector<Circle>& circles, const int numRotations, const Vector& mirror)
+void RenderImage(cv::Mat& img, const std::vector<Circle>& circles, const int numArms, const Vector& mirror)
 {
-    const unsigned char THETA = 360 / numRotations;
+    const unsigned char THETA = 360 / numArms;
 
     // draws the original circles
-    for (int rotation = 0; rotation < numRotations; rotation++)
+    for (int rotation = 0; rotation < numArms; rotation++)
     {
         DrawRotatedCircles(img, circles, THETA, rotation);
     }
@@ -75,7 +75,7 @@ void RenderImage(cv::Mat& img, const std::vector<Circle>& circles, const int num
     });
 
     // draw the mirrored circles
-    for (int rotation = 0; rotation < numRotations; rotation++)
+    for (int rotation = 0; rotation < numArms; rotation++)
     {
         DrawRotatedCircles(img, tmp, THETA, rotation);
     }
