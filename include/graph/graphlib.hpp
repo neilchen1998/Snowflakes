@@ -17,6 +17,13 @@ struct Circle
 
     Circle() : c(0.0, 0.0), r(255), g(255), b(255), radius(0) {}
     Circle(Vector c, unsigned char r, unsigned char g, unsigned char b, unsigned int radius) : c(c), r(r), g(g), b(b), radius(radius) {}
+
+    void SetColour(unsigned char r, unsigned g, unsigned b)
+    {
+        this->r = r;
+        this->g = g;
+        this->b = b;
+    }
 };
 
 /// @brief Displays the image using OpenCV
