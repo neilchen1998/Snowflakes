@@ -41,15 +41,15 @@ void DrawCircles(cv::Mat& img, const std::vector<Circle>& circles);
 
 /// @brief Draw the backbone of a snowflake
 /// @param img the canvas
-/// @param numRotations the number of rotations
-void DrawBackbone(cv::Mat& img, const Vector& v, const int length, const int numRotations);
+/// @param numArms the number of rotations
+void DrawBackbone(cv::Mat& img, const Vector& v, const int length, const int numArms);
 
 /// @brief Renders an image of circles and mirrored circles
 /// @param img the canvas
 /// @param circles the vector container contains all circles
-/// @param numRotations the number of rotations
+/// @param numArms the number of rotations
 /// @param mirror the mirror vector
-void RenderImage(cv::Mat& img, const std::vector<Circle>& circles, const int numRotations, const Vector& mirror = Vector(1, 1));
+void RenderImage(cv::Mat& img, const std::vector<Circle>& circles, const int numArms, const Vector& mirror = Vector(1, 1));
 
 /// @brief Saves the image using OpenCV
 /// @param filename the filename
