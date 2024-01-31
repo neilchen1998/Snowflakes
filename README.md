@@ -55,3 +55,7 @@ To build docs (requires Doxygen, output in `build/docs/html`):
 ```bash
 cmake --build build --target docs
 ```
+
+## Reference
+
+* https://www.its.caltech.edu/~atomic/snowcrystals/class/class-old.htm
