@@ -68,6 +68,14 @@ void DrawFern(cv::Mat& img, const Vector& v, const int armLength, const int armW
     }
 }
 
+void DrawRadiatingDendriteSnowflake(cv::Mat& img, const Vector& v, const int armLength, const int armWidth, const int nodeLength, const int branchLength, const double theta, const double rate)
+{
+    for (int rotation = 0; rotation < 6; ++rotation)
+    {
+        DrawFern(img, Vector::Rotate(v, DEG_TO_RAD(60 * rotation)), armLength, armWidth, nodeLength, branchLength, theta, rate);
+    }
+}
+
 void DrawRotatedCircles(cv::Mat& img, const std::vector<Circle>& circles, const int theta, const int spin)
 {
     auto itr = circles.cbegin();

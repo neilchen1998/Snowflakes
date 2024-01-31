@@ -56,6 +56,17 @@ void DrawBackbone(cv::Mat& img, const Vector& v, const int length, const int num
 /// @param rate the discount rate
 void DrawFern(cv::Mat& img, const Vector& v, const int armLength, const int armWidth, const int nodeLength, const int branchLength, const double theta, const double rate);
 
+/// @brief Draw a Radiating Dendrites snowflake
+/// @param img the canvas
+/// @param v the direction vector of the arm
+/// @param armLength the length of the arm
+/// @param armWidth the width of the arm
+/// @param nodeLength the distance betweeen two branches
+/// @param branchLength the length of the branch
+/// @param theta the angle between the branch and the arm
+/// @param rate the discount rate
+void DrawRadiatingDendriteSnowflake(cv::Mat& img, const Vector& v, const int armLength, const int armWidth, const int nodeLength, const int branchLength, const double theta, const double rate);
+
 /// @brief Renders an image of circles and mirrored circles
 /// @param img the canvas
 /// @param circles the vector container contains all circles
