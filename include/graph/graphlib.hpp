@@ -9,6 +9,7 @@
 
 #define WHITE CV_RGB(255, 255, 255)
 #define LIGHT_SKY_BLUE CV_RGB(153, 204, 255)
+#define SALMON CV_RGB(250, 128, 114)
 
 struct Circle
 {
@@ -43,6 +44,17 @@ void DrawCircles(cv::Mat& img, const std::vector<Circle>& circles);
 /// @param img the canvas
 /// @param numArms the number of rotations
 void DrawBackbone(cv::Mat& img, const Vector& v, const int length, const int numArms);
+
+/// @brief Draw a fern
+/// @param img the canvas
+/// @param v the direction vector of the arm
+/// @param armLength the length of the arm
+/// @param armWidth the width of the arm
+/// @param nodeLength the distance betweeen two branches
+/// @param branchLength the length of the branch
+/// @param theta the angle between the branch and the arm
+/// @param rate the discount rate
+void DrawFern(cv::Mat& img, const Vector& v, const int armLength, const int armWidth, const int nodeLength, const int branchLength, const double theta, const double rate);
 
 /// @brief Renders an image of circles and mirrored circles
 /// @param img the canvas
