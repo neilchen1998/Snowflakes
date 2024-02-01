@@ -30,28 +30,10 @@ int main()
     {
         // creates a black canvas
         cv::Mat img(ROWS, COLS, CV_8UC3, CV_RGB(0, 0, 0));
-        // constexpr size_t NUM_CIRCLES = 50;
-        // constexpr unsigned char NUM_ARMS = 6;
-        // std::vector<Circle> circles(NUM_CIRCLES * 2 * NUM_ARMS);
-        // circles[0].c = Vector(0, 0);
-        
-        // // generates particles
-        // for (size_t i = 1; i < NUM_CIRCLES; i++)
-        // {
-        //     Vector start = circles[i - 1].c;
-        //     int radiusStart = circles[i - 1].radius;
-        //     Vector dir = Vector(1, boost_normal_distribution(1, 0.3));
-        //     int radiusNew = boost_uniform_int_distribution(7);
-        //     Vector cNew = GenerateNextCircle(start, radiusStart, dir, radiusNew);
-        //     circles[i].c = cNew;
-        //     circles[i].radius = radiusNew;
-        // }
 
-        // // draws all circles on the canvas
-        // RenderImage(img, circles, NUM_ARMS);
-        // DrawBackbone(img, Vector(1, 1), 250, NUM_ARMS);
+        DrawCrystalSnowflake(img, Vector(1, 1), boost_normal_distribution(45, 10));
 
-        DrawRadiatingDendriteSnowflake(img, Vector(1, boost_normal_distribution(1, 0.3)), 200, boost_normal_distribution(5, 1), 20, 50 , DEG_TO_RAD(boost_normal_distribution(60, 10)), boost_normal_distribution(0.7, 0.1));
+        // DrawRadiatingDendriteSnowflake(img, Vector(1, boost_normal_distribution(1, 0.3)), 200, boost_normal_distribution(5, 1), 20, 50 , DEG_TO_RAD(boost_normal_distribution(60, 10)), boost_normal_distribution(0.7, 0.1));
 
         #if DEBUG_MODE
 
