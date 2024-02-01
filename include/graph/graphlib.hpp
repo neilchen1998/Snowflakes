@@ -70,4 +70,9 @@ void DrawCrystalSnowflake(cv::Mat& img, const Vector& v, const int numCrystals);
 /// @return true if the file has been saved successfully
 bool SaveImage(const std::string& filename, cv::Mat& img);
 
+/// @brief Put label on the canvas
+/// @param img the canvas
+/// @param label the label
+void PutLabel(cv::Mat& img, const std::string& label);
+
 #endif  // INCLUDE_GRAPH_GRAPHLIB_H_

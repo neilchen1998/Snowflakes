@@ -152,3 +152,20 @@ bool SaveImage(const std::string& filename, cv::Mat& img)
     else
         return false;
 }
+
+void PutLabel(cv::Mat& img, const std::string& label)
+{
+    int fontFace = cv::FONT_HERSHEY_PLAIN;
+    double fontScale = 2;
+    int thickness = 2;
+    int baseline = 0;
+
+    cv::Size textSize = cv::getTextSize(label, fontFace, fontScale, thickness, &baseline);
+    baseline += thickness;
+    
+    // calculate the center the text
+    cv::Point textOrg(0.5 * (img.cols - textSize.width), 0.5 * textSize.height + 50);
+
+    // put the text on the image
+    cv::putText(img, label, textOrg, cv::FONT_HERSHEY_PLAIN, fontScale, LIGHT_SKY_BLUE, thickness, 2);
+}
