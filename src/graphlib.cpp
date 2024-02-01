@@ -52,14 +52,14 @@ void DrawBackbone(cv::Mat& img, const Vector& v, const int length)
     for (int rotation = 0; rotation < NUM_ARMS; rotation++)
     {
         Vector dir = length * Vector::Rotate(v, DEG_TO_RAD(THETA * rotation));
-        cv::line(img, cv::Point(CENTER, CENTER), cv::Point(dir.x + CENTER, dir.y + CENTER), LIGHT_SKY_BLUE, 5);
+        cv::line(img, cv::Point(CENTER, CENTER), cv::Point(dir.x + CENTER, dir.y + CENTER), WHITE, 5);
     }
 }
 
 void DrawFern(cv::Mat& img, const Vector& v, const int armLength, const int armWidth, const int nodeLength, const int branchLength, const double theta, const double rate)
 {
     // draws the main arm
-    cv::line(img, cv::Point(CENTER, CENTER), cv::Point(armLength * v.x + CENTER, armLength * v.y + CENTER), LIGHT_SKY_BLUE, 5);
+    cv::line(img, cv::Point(CENTER, CENTER), cv::Point(armLength * v.x + CENTER, armLength * v.y + CENTER), WHITE, 5);
 
     // draw the branches
     const int N = armLength / nodeLength;
@@ -69,11 +69,11 @@ void DrawFern(cv::Mat& img, const Vector& v, const int armLength, const int armW
         // draw the branch
         Vector start = (i * nodeLength) * v;
         Vector end = alpha * branchLength * Vector::Rotate(v, theta) + start;
-        cv::line(img, cv::Point(start.x + CENTER, start.y + CENTER), cv::Point(end.x + CENTER, end.y + CENTER), SALMON, 5);
+        cv::line(img, cv::Point(start.x + CENTER, start.y + CENTER), cv::Point(end.x + CENTER, end.y + CENTER), WHITE, 5);
 
         // draw the mirrored branch
         end = Vector::Mirror(end, v);
-        cv::line(img, cv::Point(start.x + CENTER, start.y + CENTER), cv::Point(end.x + CENTER, end.y + CENTER), SALMON, 5);
+        cv::line(img, cv::Point(start.x + CENTER, start.y + CENTER), cv::Point(end.x + CENTER, end.y + CENTER), WHITE, 5);
 
         // apply the discount rate
         alpha *= rate;
