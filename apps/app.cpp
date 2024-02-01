@@ -19,9 +19,9 @@
 #define PI 3.14159265
 #define DEG_TO_RAD(deg) ((deg) * PI / 180.0 )
 
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 
-int main()
+int main(int argc, char* argv[])
 {   
     bool canSave = true;
     constexpr unsigned char NUM_RENDERS = (DEBUG_MODE) ? 1 : 10;
@@ -31,9 +31,15 @@ int main()
         // creates a black canvas
         cv::Mat img(ROWS, COLS, CV_8UC3, CV_RGB(0, 0, 0));
 
-        DrawCrystalSnowflake(img, Vector(1, 1), boost_normal_distribution(45, 10));
+        const int mean = 45, sd = 10;
+        DrawCrystalSnowflake(img, Vector(1, 1), boost_normal_distribution(mean, sd));
 
-        // DrawRadiatingDendriteSnowflake(img, Vector(1, boost_normal_distribution(1, 0.3)), 200, boost_normal_distribution(5, 1), 20, 50 , DEG_TO_RAD(boost_normal_distribution(60, 10)), boost_normal_distribution(0.7, 0.1));
+        std::string label = "mean: " + std::to_string(mean) + " sd: " + std::to_string(sd);
+
+        // DrawRadiatingDendriteSnowflake(img, Vector(1, boost_normal_distribution(1, 0.3)), 200, boost_normal_distribution(5, 1), 20, 50 , DEG_TO_RAD(boost_normal_distribution(60, 10)), boost_normal_distribution(0.8, 0.1));
+
+        // put parameters on the image
+        // PutLabel(img, label);
 
         #if DEBUG_MODE
 
