@@ -7,12 +7,24 @@
 
 #include "graph/graphlib.hpp"
 #include "coordinate/vectorlib.hpp"
+#include "coordinate/generatorlib.hpp"
+#include "math/mathlib.hpp"
 
+// OpenCV
 #define FILLED -1
 #define ROWS 1024
 #define COLS 1024
 #define CENTER (ROWS/2)
 
+// snowflake properties
+#define NUM_ARMS 6
+
+// colours
+#define WHITE CV_RGB(255, 255, 255)
+#define LIGHT_SKY_BLUE CV_RGB(153, 204, 255)
+#define SALMON CV_RGB(250, 128, 114)
+
+// algebra
 #define PI 3.14159265
 #define DEG_TO_RAD(deg) ((deg) * PI / 180.0 )
 
@@ -34,10 +46,10 @@ void DrawCircles(cv::Mat& img, const std::vector<Circle>& circles)
     }
 }
 
-void DrawBackbone(cv::Mat& img, const Vector& v, const int length, const int numArms)
+void DrawBackbone(cv::Mat& img, const Vector& v, const int length)
 {
-    const unsigned char THETA = 360 / numArms;
-    for (int rotation = 0; rotation < numArms; rotation++)
+    const unsigned char THETA = 360 / NUM_ARMS;
+    for (int rotation = 0; rotation < NUM_ARMS; rotation++)
     {
         Vector dir = length * Vector::Rotate(v, DEG_TO_RAD(THETA * rotation));
         cv::line(img, cv::Point(CENTER, CENTER), cv::Point(dir.x + CENTER, dir.y + CENTER), LIGHT_SKY_BLUE, 5);
@@ -87,12 +99,27 @@ void DrawRotatedCircles(cv::Mat& img, const std::vector<Circle>& circles, const 
     }
 }
 
-void RenderImage(cv::Mat& img, const std::vector<Circle>& circles, const int numArms, const Vector& mirror)
+void DrawCrystalSnowflake(cv::Mat& img, const Vector& v, const int numCrystals)
 {
-    const unsigned char THETA = 360 / numArms;
+    std::vector<Circle> circles(numCrystals * 2 * NUM_ARMS);
+    circles[0].c = Vector(0, 0);
 
+    // generates particles
+    for (size_t i = 1; i < numCrystals; i++)
+    {
+        Vector start = circles[i - 1].c;
+        int radiusStart = circles[i - 1].radius;
+        int radiusNew = boost_uniform_int_distribution(7);
+        Vector cNew = GenerateNextCircle(start, radiusStart, Vector(1, boost_normal_distribution(1, 0.3)), radiusNew);
+        circles[i].c = cNew;
+        circles[i].radius = radiusNew;
+    }
+
+    // draws all circles on the canvas
+    const unsigned char THETA = 360 / NUM_ARMS;
+    const Vector mirror(boost_normal_distribution(1, 0.1), boost_normal_distribution(1, 0.1));
     // draws the original circles
-    for (int rotation = 0; rotation < numArms; rotation++)
+    for (int rotation = 0; rotation < NUM_ARMS; rotation++)
     {
         DrawRotatedCircles(img, circles, THETA, rotation);
     }
@@ -107,7 +134,7 @@ void RenderImage(cv::Mat& img, const std::vector<Circle>& circles, const int num
     });
 
     // draw the mirrored circles
-    for (int rotation = 0; rotation < numArms; rotation++)
+    for (int rotation = 0; rotation < NUM_ARMS; rotation++)
     {
         DrawRotatedCircles(img, tmp, THETA, rotation);
     }

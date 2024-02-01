@@ -11,7 +11,7 @@ target_include_directories(graph_library PUBLIC ../include)
 target_include_directories(coordinate_library PUBLIC ../include)
 
 target_link_libraries(math_library PRIVATE Boost::boost)
-target_link_libraries(graph_library PRIVATE ${OpenCV_LIBS})
+target_link_libraries(graph_library PRIVATE ${OpenCV_LIBS} math_library)
 
 target_compile_features(math_library PUBLIC cxx_std_17)
 target_compile_features(graph_library PUBLIC cxx_std_17)

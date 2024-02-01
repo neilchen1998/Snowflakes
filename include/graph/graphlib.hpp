@@ -7,10 +7,6 @@
 #include <opencv2/core/base.hpp>
 #include "coordinate/vectorlib.hpp"
 
-#define WHITE CV_RGB(255, 255, 255)
-#define LIGHT_SKY_BLUE CV_RGB(153, 204, 255)
-#define SALMON CV_RGB(250, 128, 114)
-
 struct Circle
 {
     Vector c;
@@ -40,11 +36,6 @@ void DisplayImage(const std::string& windowName, cv::Mat& img);
 /// @param circles a vector of circles
 void DrawCircles(cv::Mat& img, const std::vector<Circle>& circles);
 
-/// @brief Draw the backbone of a snowflake
-/// @param img the canvas
-/// @param numArms the number of rotations
-void DrawBackbone(cv::Mat& img, const Vector& v, const int length, const int numArms);
-
 /// @brief Draw a fern
 /// @param img the canvas
 /// @param v the direction vector of the arm
@@ -67,12 +58,11 @@ void DrawFern(cv::Mat& img, const Vector& v, const int armLength, const int armW
 /// @param rate the discount rate
 void DrawRadiatingDendriteSnowflake(cv::Mat& img, const Vector& v, const int armLength, const int armWidth, const int nodeLength, const int branchLength, const double theta, const double rate);
 
-/// @brief Renders an image of circles and mirrored circles
+/// @brief Draw a Crystal snowflake
 /// @param img the canvas
-/// @param circles the vector container contains all circles
-/// @param numArms the number of rotations
-/// @param mirror the mirror vector
-void RenderImage(cv::Mat& img, const std::vector<Circle>& circles, const int numArms, const Vector& mirror = Vector(1, 1));
+/// @param v the direction of the arm
+/// @param numCrystals the number of circles per arm
+void DrawCrystalSnowflake(cv::Mat& img, const Vector& v, const int numCrystals);
 
 /// @brief Saves the image using OpenCV
 /// @param filename the filename
