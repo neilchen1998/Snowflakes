@@ -19,7 +19,7 @@
 #define PI 3.14159265
 #define DEG_TO_RAD(deg) ((deg) * PI / 180.0 )
 
-#define DEBUG_MODE 0
+#define DEBUG_MODE 1
 
 int main(int argc, char* argv[])
 {   
@@ -32,14 +32,18 @@ int main(int argc, char* argv[])
         cv::Mat img(ROWS, COLS, CV_8UC3, CV_RGB(0, 0, 0));
 
         const int mean = 45, sd = 10;
-        DrawCrystalSnowflake(img, Vector(1, 1), boost_normal_distribution(mean, sd));
+        int numCrystals = boost_normal_distribution(mean, sd);
+        int radiusHigh = 7;
+        int radiusLow = 2;
+        const Vector mirror(boost_normal_distribution(1, 0.1), boost_normal_distribution(1, 0.1));
+        DrawCrystalSnowflake(img, Vector(1, 1), numCrystals, radiusHigh, radiusLow, mirror);
 
-        std::string label = "mean: " + std::to_string(mean) + " sd: " + std::to_string(sd);
+        std::string label = "# of crystals: " + std::to_string(numCrystals) + " mirror: " + mirror.ToString();
 
         // DrawRadiatingDendriteSnowflake(img, Vector(1, boost_normal_distribution(1, 0.3)), 200, boost_normal_distribution(5, 1), 20, 50 , DEG_TO_RAD(boost_normal_distribution(60, 10)), boost_normal_distribution(0.8, 0.1));
 
         // put parameters on the image
-        // PutLabel(img, label);
+        PutLabel(img, label);
 
         #if DEBUG_MODE
 
