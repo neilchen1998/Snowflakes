@@ -1,4 +1,6 @@
 #include <cmath>
+#include <string>
+#include <sstream>
 
 #include "coordinate/vectorlib.hpp"
 
@@ -47,6 +49,18 @@ Vector Vector::Project(const Vector& v, const Vector& w)
 Vector Vector::Mirror(const Vector& v, const Vector& w)
 {
     return 2 * Vector::Project(v, w) - v;
+}
+
+std::string Vector::ToString() const
+{
+    // reference: http://www.c-jump.com/bcc/c155c/modules/cis155_Ch11a_format/L11_160_string_stream_and_flo.htm
+    std::stringstream ssx, ssy;
+    ssx.precision(2);
+    ssy.precision(2);
+    ssx << x;
+    ssy << y;
+    std::string ret = "(" + ssx.str() + ", " + ssy.str() + ")";
+    return ret;
 }
 
 Vector Vector::operator+(const Vector& p) const

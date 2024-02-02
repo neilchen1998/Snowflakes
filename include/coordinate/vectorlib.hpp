@@ -3,6 +3,8 @@
 #ifndef INCLUDE_COORDINATE_VECTORLIB_H_
 #define INCLUDE_COORDINATE_VECTORLIB_H_
 
+#include <string>
+
 struct Vector
 {
     double x, y;
@@ -52,6 +54,8 @@ struct Vector
     /// @param w the norm vector
     /// @return the new vector after mirrored
     static Vector Mirror(const Vector& v, const Vector& w);
+
+    std::string ToString() const;
 
     /// @brief Adding two Vectors
     /// @param other the other Vector
