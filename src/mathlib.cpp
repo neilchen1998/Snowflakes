@@ -12,10 +12,10 @@ double boost_normal_distribution(double mean, double sd)
     return var_nor();
 }
 
-int boost_uniform_int_distribution(int high, int low)
+int boost_uniform_int_distribution(int max, int min)
 {
     static boost::mt19937 rng; // random number generator, declared as static
-    boost::random::uniform_int_distribution<> uni(low, high);
+    boost::random::uniform_int_distribution<> uni(min, max);
 
     return uni(rng);
 }
