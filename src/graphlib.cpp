@@ -99,7 +99,7 @@ void DrawRotatedCircles(cv::Mat& img, const std::vector<Circle>& circles, const 
     }
 }
 
-void DrawCrystalSnowflake(cv::Mat& img, const Vector& v, const int numCrystals)
+void DrawCrystalSnowflake(cv::Mat& img, const Vector& v, const int numCrystals, int radiusHigh, int radiusLow, const Vector& mirror)
 {
     std::vector<Circle> circles(numCrystals * 2 * NUM_ARMS);
     circles[0].c = Vector(0, 0);
@@ -109,7 +109,7 @@ void DrawCrystalSnowflake(cv::Mat& img, const Vector& v, const int numCrystals)
     {
         Vector start = circles[i - 1].c;
         int radiusStart = circles[i - 1].radius;
-        int radiusNew = boost_uniform_int_distribution(7);
+        int radiusNew = boost_uniform_int_distribution(radiusHigh, radiusLow);
         Vector cNew = GenerateNextCircle(start, radiusStart, Vector(1, boost_normal_distribution(1, 0.3)), radiusNew);
         circles[i].c = cNew;
         circles[i].radius = radiusNew;
@@ -117,7 +117,6 @@ void DrawCrystalSnowflake(cv::Mat& img, const Vector& v, const int numCrystals)
 
     // draws all circles on the canvas
     const unsigned char THETA = 360 / NUM_ARMS;
-    const Vector mirror(boost_normal_distribution(1, 0.1), boost_normal_distribution(1, 0.1));
     // draws the original circles
     for (int rotation = 0; rotation < NUM_ARMS; rotation++)
     {

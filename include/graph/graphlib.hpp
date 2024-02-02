@@ -62,7 +62,7 @@ void DrawRadiatingDendriteSnowflake(cv::Mat& img, const Vector& v, const int arm
 /// @param img the canvas
 /// @param v the direction of the arm
 /// @param numCrystals the number of circles per arm
-void DrawCrystalSnowflake(cv::Mat& img, const Vector& v, const int numCrystals);
+void DrawCrystalSnowflake(cv::Mat& img, const Vector& v, const int numCrystals, int radiusHigh, int radiusLow, const Vector& mirror);
 
 /// @brief Saves the image using OpenCV
 /// @param filename the filename
