@@ -37,13 +37,13 @@ int main()
         const Vector v(boost_normal_distribution(1, 0.1), boost_normal_distribution(1, 0.1));
         const Vector w(boost_normal_distribution(1, 0.1), boost_normal_distribution(1, 0.1));
 
-        const int motherSide = boost_normal_distribution(100, 30);
-        const int sonSide = boost_normal_distribution(40, 10);
+        int motherSide = boost_normal_distribution(100, 30);
+        int sonSide = boost_normal_distribution(40, 10);
 
         // makes sure motherSide is greater than sonSide
         motherSide = (motherSide <= sonSide) ? sonSide + 10 : motherSide;
 
-        DrawStellarPlateSnowflake(img, v, w, motherSide, sonSide);
+        DrawStellarPlateSnowflake(img, v.Unit(), w, motherSide, sonSide);
 
         // // put parameters on the image
         // PutLabel(img, label);
