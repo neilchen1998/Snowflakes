@@ -181,6 +181,47 @@ void DrawStellarPlateSnowflake(cv::Mat& img, const Vector& v, const Vector& w, c
     }
 }
 
+void DrawTriangularCrystalSnowflake(cv::Mat& img, const Vector& dir, const int motherTriangleR, const int sonTriangleR, const int radius)
+{
+    // defines the points (vertices) of the main body
+    std::vector<cv::Point> points(6);
+    Vector v = (motherTriangleR - sonTriangleR) * dir;
+    Vector tmp;
+    
+    // the first vertex
+    tmp = sonTriangleR * Vector::Rotate(v.Unit(), DEG_TO_RAD(-120)) + v;
+    points[0] = cv::Point(tmp.x + CENTER, tmp.y + CENTER);
+    cv::circle(img, cv::Point(tmp.x + CENTER, tmp.y + CENTER), radius, WHITE, FILLED);
+    tmp = sonTriangleR * Vector::Rotate(v.Unit(), DEG_TO_RAD(120)) + v;
+    points[1] = cv::Point(tmp.x + CENTER, tmp.y + CENTER);
+    cv::circle(img, cv::Point(tmp.x + CENTER, tmp.y + CENTER), radius, WHITE, FILLED);
+
+    // the second vertex
+    v.Rotate(DEG_TO_RAD(120));
+    tmp = sonTriangleR * Vector::Rotate(v.Unit(), DEG_TO_RAD(-120)) + v;
+    points[2] = cv::Point(tmp.x + CENTER, tmp.y + CENTER);
+    cv::circle(img, cv::Point(tmp.x + CENTER, tmp.y + CENTER), radius, WHITE, FILLED);
+    tmp = sonTriangleR * Vector::Rotate(v.Unit(), DEG_TO_RAD(120)) + v;
+    points[3] = cv::Point(tmp.x + CENTER, tmp.y + CENTER);
+    cv::circle(img, cv::Point(tmp.x + CENTER, tmp.y + CENTER), radius, WHITE, FILLED);
+
+    // the third vertex
+    v.Rotate(DEG_TO_RAD(120));
+    tmp = sonTriangleR * Vector::Rotate(v.Unit(), DEG_TO_RAD(-120)) + v;
+    points[4] = cv::Point(tmp.x + CENTER, tmp.y + CENTER);
+    cv::circle(img, cv::Point(tmp.x + CENTER, tmp.y + CENTER), radius, WHITE, FILLED);
+    tmp = sonTriangleR * Vector::Rotate(v.Unit(), DEG_TO_RAD(120)) + v;
+    points[5] = cv::Point(tmp.x + CENTER, tmp.y + CENTER);
+    cv::circle(img, cv::Point(tmp.x + CENTER, tmp.y + CENTER), radius, WHITE, FILLED);
+
+    // puts the points into a vector of vectors
+    std::vector<std::vector<cv::Point>> pts(1);
+    pts[0] = points;
+
+    // draws the polygon on the image
+    cv::fillPoly(img, pts, WHITE);
+}
+
 bool SaveImage(const std::string& filename, cv::Mat& img)
 {
     // checks if the folder exists

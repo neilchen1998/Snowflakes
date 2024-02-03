@@ -79,6 +79,14 @@ void DrawHexagon(cv::Mat& img, const Vector& v, const int side, const Vector& of
 /// @param sonSide the length of the son hexagon
 void DrawStellarPlateSnowflake(cv::Mat& img, const Vector& v, const Vector& w, const int motherSide, const int sonSide);
 
+/// @brief Draw a Triangular Crystal snowflake
+/// @param img the canvas
+/// @param dir the direction of the main triangle
+/// @param motherTriangleR the radius of the circumscribe of the mother triangle
+/// @param sonTriangleR the radius of the circumscribe of the son triangle
+/// @param radius the radius of the circle at the vertex
+void DrawTriangularCrystalSnowflake(cv::Mat& img, const Vector& dir, const int motherTriangleR, const int sonTriangleR, const int radius);
+
 /// @brief Saves the image using OpenCV
 /// @param filename the filename
 /// @param img the image
