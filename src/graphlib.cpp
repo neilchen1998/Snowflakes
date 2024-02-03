@@ -1,5 +1,7 @@
 #include <filesystem>
 #include <algorithm>
+#include <vector>
+#include <array>
 
 #include "opencv2/imgcodecs.hpp"
 #include "opencv2/highgui.hpp"
@@ -137,6 +139,27 @@ void DrawCrystalSnowflake(cv::Mat& img, const Vector& v, const int numCrystals, 
     {
         DrawRotatedCircles(img, tmp, THETA, rotation);
     }
+}
+
+void DrawHexagon(cv::Mat& img, const Vector& v, const int side)
+{
+    // defines the points (vertices) of the hexagon
+    std::vector<cv::Point> points(6);
+    Vector r = side * v;
+    auto itr = points.begin();
+    while (itr != points.end())
+    {
+        *itr = cv::Point(r.x + CENTER, r.y + CENTER);
+        r.Rotate(DEG_TO_RAD(60));
+        ++itr;
+    }
+
+    // Put the points into a vector of vectors
+    std::vector<std::vector<cv::Point>> pts(1);
+    pts[0] = points;
+
+    // Draw the polygon on the image
+    cv::fillPoly(img, pts, LIGHT_SKY_BLUE);
 }
 
 bool SaveImage(const std::string& filename, cv::Mat& img)

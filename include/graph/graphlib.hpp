@@ -64,6 +64,12 @@ void DrawRadiatingDendriteSnowflake(cv::Mat& img, const Vector& v, const int arm
 /// @param numCrystals the number of circles per arm
 void DrawCrystalSnowflake(cv::Mat& img, const Vector& v, const int numCrystals, int radiusHigh, int radiusLow, const Vector& mirror);
 
+/// @brief Draw a hexagon
+/// @param img the canvas
+/// @param v the orientation of the hexagon
+/// @param side the length of the side
+void DrawHexagon(cv::Mat& img, const Vector& v, const int side);
+
 /// @brief Saves the image using OpenCV
 /// @param filename the filename
 /// @param img the image
