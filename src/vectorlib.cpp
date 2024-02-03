@@ -3,6 +3,7 @@
 #include <sstream>
 
 #include "coordinate/vectorlib.hpp"
+#include "helper/fmtlib.hpp"
 
 #define PI 3.14159265
 
@@ -53,13 +54,7 @@ Vector Vector::Mirror(const Vector& v, const Vector& w)
 
 std::string Vector::ToString() const
 {
-    // reference: http://www.c-jump.com/bcc/c155c/modules/cis155_Ch11a_format/L11_160_string_stream_and_flo.htm
-    std::stringstream ssx, ssy;
-    ssx.precision(2);
-    ssy.precision(2);
-    ssx << x;
-    ssy << y;
-    std::string ret = "(" + ssx.str() + ", " + ssy.str() + ")";
+    std::string ret = "(" + Formatter(x) + ", " + Formatter(y) + ")";
     return ret;
 }
 
