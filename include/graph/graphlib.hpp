@@ -68,7 +68,16 @@ void DrawCrystalSnowflake(cv::Mat& img, const Vector& v, const int numCrystals, 
 /// @param img the canvas
 /// @param v the orientation of the hexagon
 /// @param side the length of the side
-void DrawHexagon(cv::Mat& img, const Vector& v, const int side);
+/// @param offset the offset
+void DrawHexagon(cv::Mat& img, const Vector& v, const int side, const Vector& offset = Vector(0, 0));
+
+/// @brief Draw a Stellar Plate snowflake
+/// @param img the canvas
+/// @param v the direction of the mother hexagon
+/// @param w the direction of the son hexagon
+/// @param motherSide the lenght of the mother hexagon
+/// @param sonSide the length of the son hexagon
+void DrawStellarPlateSnowflake(cv::Mat& img, const Vector& v, const Vector& w, const int motherSide, const int sonSide);
 
 /// @brief Saves the image using OpenCV
 /// @param filename the filename

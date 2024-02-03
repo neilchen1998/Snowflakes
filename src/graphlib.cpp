@@ -141,7 +141,7 @@ void DrawCrystalSnowflake(cv::Mat& img, const Vector& v, const int numCrystals, 
     }
 }
 
-void DrawHexagon(cv::Mat& img, const Vector& v, const int side)
+void DrawHexagon(cv::Mat& img, const Vector& v, const int side, const Vector& offset)
 {
     // defines the points (vertices) of the hexagon
     std::vector<cv::Point> points(6);
@@ -153,7 +153,7 @@ void DrawHexagon(cv::Mat& img, const Vector& v, const int side)
     auto itr = points.begin();
     while (itr != points.end())
     {
-        *itr = cv::Point(r.x + CENTER, r.y + CENTER);
+        *itr = cv::Point(r.x + offset.x + CENTER, r.y + offset.y + CENTER);
 
         // rotate the vector
         r.Rotate(DEG_TO_RAD(60));
@@ -166,6 +166,19 @@ void DrawHexagon(cv::Mat& img, const Vector& v, const int side)
 
     // draws the polygon on the image
     cv::fillPoly(img, pts, WHITE);
+}
+
+void DrawStellarPlateSnowflake(cv::Mat& img, const Vector& v, const Vector& w, const int motherSide, const int sonSide)
+{
+    DrawHexagon(img, v, motherSide);
+
+    Vector offset = motherSide * v;
+
+    for (int i = 0; i < 6; i++)
+    {
+        DrawHexagon(img, v, sonSide, offset);
+        offset.Rotate(DEG_TO_RAD(60));
+    }
 }
 
 bool SaveImage(const std::string& filename, cv::Mat& img)
