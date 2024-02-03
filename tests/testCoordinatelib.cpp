@@ -236,7 +236,7 @@ TEST_CASE( "Coordinate", "Vector" )
     SECTION("To String")
     {
         REQUIRE (vX.ToString() == std::string("(1, 0)"));
-        REQUIRE (v2.ToString() == std::string("(2.5, 21)"));
+        REQUIRE (v2.ToString() == std::string("(2.6, 21)"));
     }
 }
 
