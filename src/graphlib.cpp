@@ -145,21 +145,27 @@ void DrawHexagon(cv::Mat& img, const Vector& v, const int side)
 {
     // defines the points (vertices) of the hexagon
     std::vector<cv::Point> points(6);
+
+    // finds the first vertice
     Vector r = side * v;
+
+    // figures out all the vertices
     auto itr = points.begin();
     while (itr != points.end())
     {
         *itr = cv::Point(r.x + CENTER, r.y + CENTER);
+
+        // rotate the vector
         r.Rotate(DEG_TO_RAD(60));
         ++itr;
     }
 
-    // Put the points into a vector of vectors
+    // puts the points into a vector of vectors
     std::vector<std::vector<cv::Point>> pts(1);
     pts[0] = points;
 
-    // Draw the polygon on the image
-    cv::fillPoly(img, pts, LIGHT_SKY_BLUE);
+    // draws the polygon on the image
+    cv::fillPoly(img, pts, WHITE);
 }
 
 bool SaveImage(const std::string& filename, cv::Mat& img)
