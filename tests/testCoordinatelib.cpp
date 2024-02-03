@@ -232,6 +232,12 @@ TEST_CASE( "Coordinate", "Vector" )
         REQUIRE (ret.x == Approx(ans.x));
         REQUIRE (ret.y == Approx(ans.y));
     }
+
+    SECTION("To String")
+    {
+        REQUIRE (vX.ToString() == std::string("(1, 0)"));
+        REQUIRE (v2.ToString() == std::string("(2.5, 21)"));
+    }
 }
 
 TEST_CASE( "GeneratorLib", "Generator" )
