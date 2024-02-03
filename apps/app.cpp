@@ -3,28 +3,25 @@
 #include <vector>
 #include <string>
 
-#include "opencv2/imgcodecs.hpp"
-#include "opencv2/highgui.hpp"
-#include "opencv2/imgproc.hpp"
+#include "opencv2/imgproc.hpp"  // CV_RGB
 
 #include "math/mathlib.hpp"
 #include "graph/graphlib.hpp"
 #include "coordinate/generatorlib.hpp"
 #include "coordinate/vectorlib.hpp"
-#include "helper/fmtlib.hpp"
 
 #define ROWS 1024
 #define COLS 1024
 
-#define DEBUG_MODE 0
+#define DEBUG_MODE 1
 
-enum snowflakeType { Crystal, RadiatingDendrite, StellarPlate };
+enum snowflakeType { Crystal, RadiatingDendrite, StellarPlate, TriangularCrystal };
 
 int main()
 {   
     constexpr unsigned char NUM_RENDERS = (DEBUG_MODE) ? 1 : 10;
 
-    std::string snowflakeName("Stellar-Plate-Snowflake");
+    std::string snowflakeName("Triangular-Crystal-Snowflake");
 
     bool canSave;
 
@@ -35,15 +32,15 @@ int main()
         cv::Mat img(ROWS, COLS, CV_8UC3, CV_RGB(0, 0, 0));
 
         const Vector v(boost_normal_distribution(1, 0.1), boost_normal_distribution(1, 0.1));
-        const Vector w(boost_normal_distribution(1, 0.1), boost_normal_distribution(1, 0.1));
 
-        int motherSide = boost_normal_distribution(100, 30);
-        int sonSide = boost_normal_distribution(40, 10);
+        int motherTriangleR = boost_normal_distribution(330, 30);
+        int sonTriangleR = boost_normal_distribution(80, 10);
+        int radius = boost_normal_distribution(50, 10);
 
         // makes sure motherSide is greater than sonSide
-        motherSide = (motherSide <= sonSide) ? sonSide + 10 : motherSide;
+        motherTriangleR = (motherTriangleR <= sonTriangleR) ? sonTriangleR + 100 : motherTriangleR;
 
-        DrawStellarPlateSnowflake(img, v.Unit(), w, motherSide, sonSide);
+        DrawTriangularCrystalSnowflake(img, v, motherTriangleR, sonTriangleR, radius);
 
         // // put parameters on the image
         // PutLabel(img, label);
