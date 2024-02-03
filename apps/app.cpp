@@ -3,9 +3,7 @@
 #include <vector>
 #include <string>
 
-#include "opencv2/imgcodecs.hpp"
-#include "opencv2/highgui.hpp"
-#include "opencv2/imgproc.hpp"
+#include "opencv2/imgproc.hpp"  // CV_RGB
 
 #include "math/mathlib.hpp"
 #include "graph/graphlib.hpp"
