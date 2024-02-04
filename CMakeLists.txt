@@ -37,6 +37,7 @@ include(FetchContent)
 # all required packages
 find_package(Boost REQUIRED)
 find_package(OpenCV REQUIRED)
+find_package(Boost COMPONENTS program_options REQUIRED) # boost::program_options
 
 # the compiled library code
 add_subdirectory(src)
