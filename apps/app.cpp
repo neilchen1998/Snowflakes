@@ -3,9 +3,9 @@
 #include <unordered_set>  // std::unordered_set
 #include <string_view>  // std::string_view
 #include <stdlib.h> // EXIT_SUCCESS, EXIT_FAILURE
-#include <boost/program_options.hpp>    // boost::program_options
 
-#include "opencv2/imgproc.hpp"  // CV_RGB
+#include <boost/program_options.hpp>    // boost::program_options
+#include <opencv2/imgproc.hpp>  // CV_RGB
 
 #include "math/mathlib.hpp"
 #include "graph/graphlib.hpp"
@@ -22,7 +22,7 @@ namespace po = boost::program_options;
 #define PI 3.14159265
 #define DEG_TO_RAD(deg) ((deg) * PI / 180.0 )
 
-#define DEBUG_MODE 0
+#define DEBUG_MODE 1
 
 int main(int argc, char* argv[])
 {
