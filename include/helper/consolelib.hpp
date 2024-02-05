@@ -71,7 +71,7 @@ bool GetUserInput(T& val, const std::string_view& varName, const T low, const T 
                 else
                 {
                     // displays error message and clear the buffer so it is ready for the next try
-                    std::cerr << Prompt<T>::Get() << low << " and " << high << " (inclusive)\n";
+                    std::cerr << "Invalid input!\n";
                     buffer.clear();
                 }
             }
