@@ -3,6 +3,7 @@
 #include <unordered_set>  // std::unordered_set
 #include <string_view>  // std::string_view
 #include <stdlib.h> // EXIT_SUCCESS, EXIT_FAILURE
+#include <algorithm>    // std::min
 
 #include <boost/program_options.hpp>    // boost::program_options
 #include <opencv2/imgproc.hpp>  // CV_RGB
@@ -12,6 +13,7 @@
 #include "coordinate/generatorlib.hpp"
 #include "coordinate/vectorlib.hpp"
 #include "helper/fmtlib.hpp"
+#include "helper/consolelib.hpp"
 
 namespace po = boost::program_options;
 
@@ -90,9 +92,18 @@ int main(int argc, char* argv[])
     bool canSave;
     if (selectedSnowflake == "crystal")
     {
-        const int mean = 45, sd = 10;
+        // default values
+        int mean = 45;
+        double sd = 10.0;
         int radiusHigh = 7;
         int radiusLow = 2;
+
+        // gets inputs from the console
+        if(!GetUserInput(mean, "mean", 5, 55) || !GetUserInput(sd, "the standard deviation of the number of crystal", 0.0, 10.0) \
+            || !GetUserInput(radiusHigh, "the lower bound of the radius", 1, 10) || !GetUserInput(radiusLow, "the lower bound of the radius", 0, radiusHigh))
+        {
+            return EXIT_FAILURE;
+        }
 
         // renders snowflakes
         for (unsigned char render = 0; render < numImages; render++)
@@ -129,7 +140,15 @@ int main(int argc, char* argv[])
     }
     else if (selectedSnowflake == "radiating-dendrite")
     {
-        const int mean = 200, sd = 20;
+        // default values
+        int mean = 200;
+        double sd = 20.0;
+
+        // gets inputs from the console
+        if(!GetUserInput(mean, "mean", 150, 300) || !GetUserInput(sd, "the standard deviation of the number of crystal", 0.0, 30.0))
+        {
+            return EXIT_FAILURE;
+        }
 
         // renders snowflakes
         for (unsigned char render = 0; render < numImages; render++)
@@ -170,6 +189,17 @@ int main(int argc, char* argv[])
     }
     else if (selectedSnowflake == "stellar-plate")
     {
+        // default values
+        int motherSideMean = 330, sonSideMean = 80;
+        double motherSideSD = 30.0, sonSideSD = 10.0;
+
+        // gets inputs from the console
+        if(!GetUserInput(motherSideMean, "mean of the mother length", 150, 300) || !GetUserInput(motherSideSD, "the standard deviation of the mother length", 0.0, 30.0) || \
+        !GetUserInput(sonSideMean, "mean of the son length", 60, static_cast<int>(std::min(motherSideMean - 2 * motherSideSD, 100.0))) || !GetUserInput(sonSideSD, "the standard deviation of the son length", 0.0, 0.5 * sonSideMean))
+        {
+            return EXIT_FAILURE;
+        }
+
         // renders snowflakes
         for (unsigned char render = 0; render < numImages; render++)
         {
@@ -212,6 +242,18 @@ int main(int argc, char* argv[])
     }
     else if (selectedSnowflake == "triangular-crystal")
     {
+        // default values
+        int motherSideMean = 330, sonSideMean = 80, radiusMean = 50;
+        double motherSideSD = 30.0, sonSideSD = 10.0, radiusSD = 10.0;
+
+        // gets inputs from the console
+        if(!GetUserInput(motherSideMean, "mean of the mother length", 150, 300) || !GetUserInput(motherSideSD, "the standard deviation of the mother length", 0.0, 30.0) || \
+        !GetUserInput(sonSideMean, "mean of the son length", 60, static_cast<int>(std::min(motherSideMean - 2 * motherSideSD, 100.0))) || !GetUserInput(sonSideSD, "the standard deviation of the son length", 0.0, 0.5 * sonSideMean) || \
+        !GetUserInput(radiusMean, "mean of the radius", 20, 90) || !GetUserInput(sonSideSD, "the standard deviation of the radius", 0.0, 0.5 * radiusMean))
+        {
+            return EXIT_FAILURE;
+        }
+
         // renders snowflakes
         for (unsigned char render = 0; render < numImages; render++)
         {
@@ -220,9 +262,9 @@ int main(int argc, char* argv[])
 
             const Vector v(boost_normal_distribution(1, 0.1), boost_normal_distribution(1, 0.1));
 
-            int motherTriangleR = boost_normal_distribution(330, 30);
-            int sonTriangleR = boost_normal_distribution(80, 10);
-            int radius = boost_normal_distribution(50, 10);
+            int motherTriangleR = boost_normal_distribution(motherSideMean, motherSideSD);
+            int sonTriangleR = boost_normal_distribution(sonSideMean, sonSideSD);
+            int radius = boost_normal_distribution(radiusMean, radiusSD);
 
             // makes sure motherSide is greater than sonSide
             motherTriangleR = (motherTriangleR <= sonTriangleR) ? sonTriangleR + 100 : motherTriangleR;
