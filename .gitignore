@@ -3,6 +3,7 @@ build/*
 
 # images rendered by app
 outputs/*
+!outputs/examples/
 
 # vscode
 .vscode/*
