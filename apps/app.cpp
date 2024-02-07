@@ -110,14 +110,14 @@ int main(int argc, char* argv[])
             // creates a black canvas
             cv::Mat img(ROWS, COLS, CV_8UC3, CV_RGB(0, 0, 0));
 
-            int numCrystals = boost_normal_distribution(mean, sd);
+            int numCrystals = static_cast<int>(std::max(boost_normal_distribution(mean, sd), 10.0));    // makes sure the value is at least 10
             const Vector mirror(boost_normal_distribution(1, 0.1), boost_normal_distribution(1, 0.1));
 
             DrawCrystalSnowflake(img, Vector(1, 1), numCrystals, radiusHigh, radiusLow, mirror);
 
             const std::string snowflakeName("Crystal-Snowflake");
 
-            std::string label = "# of crystals: " + std::to_string(numCrystals) + " mirror: " + mirror.ToString();
+            std::string label = "mirror vec: " + mirror.ToString();
 
             // put parameters on the image
             PutLabel(img, label);
@@ -161,12 +161,12 @@ int main(int argc, char* argv[])
             const Vector mirror(boost_normal_distribution(1, 0.1), boost_normal_distribution(1, 0.1));
             const int armLength = boost_normal_distribution(mean, sd);
             const int armWidth = boost_normal_distribution(5, 1);
-            const int nodeLength = 20;
-            const int branchLength = 50;
+            const int nodeLength = boost_uniform_int_distribution(25, 15);    // 20
+            const int branchLength = boost_uniform_int_distribution(65, 20);    // 50
             const double theta = DEG_TO_RAD(boost_normal_distribution(60, 10));
             const double rate = boost_normal_distribution(0.8, 0.1);
 
-            DrawRadiatingDendriteSnowflake(img, mirror, armLength, armWidth, nodeLength, branchLength , theta, rate);
+            DrawRadiatingDendriteSnowflake(img, mirror, armLength, armWidth, nodeLength, branchLength, theta, rate);
 
             const std::string snowflakeName("Radiating-Dendrite-Snowflake");
 
@@ -214,8 +214,8 @@ int main(int argc, char* argv[])
             const Vector v(boost_normal_distribution(1, 0.1), boost_normal_distribution(1, 0.1));
             const Vector w(boost_normal_distribution(1, 0.1), boost_normal_distribution(1, 0.1));
 
-            int motherSide = boost_normal_distribution(100, 30);
-            int sonSide = boost_normal_distribution(40, 10);
+            int motherSide = boost_normal_distribution(motherSideMean, motherSideSD);
+            int sonSide = boost_normal_distribution(sonSideMean, sonSideSD);
 
             // makes sure motherSide is greater than sonSide
             motherSide = (motherSide <= sonSide) ? sonSide + 10 : motherSide;
@@ -300,6 +300,11 @@ int main(int argc, char* argv[])
                     return EXIT_FAILURE;
             #endif
         }
+    }
+
+    if (canSave)
+    {
+        std::cout << "All files have been saved successfully!" << std::endl;
     }
 
     return EXIT_SUCCESS;
