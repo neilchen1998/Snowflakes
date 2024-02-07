@@ -24,13 +24,14 @@ namespace po = boost::program_options;
 #define PI 3.14159265
 #define DEG_TO_RAD(deg) ((deg) * PI / 180.0 )
 
-#define DEBUG_MODE 0
+#define DEBUG_MODE 1
 
 int main(int argc, char* argv[])
 {
     std::string selectedSnowflake;
     std::string outputDir;
     unsigned int numImages;
+    bool useDefaultValues;
 
     // creates options descriptions and default values
     po::options_description desc("Options:");
@@ -38,7 +39,8 @@ int main(int argc, char* argv[])
         ("help,h", "Display this information")
         ("snowflake,s", po::value<std::string>(&selectedSnowflake)->value_name("<SNOWFLAKE_TYPE>")->default_value("crystal"), "the type of snowflake")
         ("output,o", po::value<std::string>(&outputDir)->value_name("<OUTPUT_DIR>")->default_value("outputs"), "the output directory")
-        ("number,n", po::value<unsigned int>(&numImages)->value_name("<NUM_IMAGES>")->default_value(10), "number of images");   // (<long name>,<short name>, <argument(s)>, <description>)
+        ("number,n", po::value<unsigned int>(&numImages)->value_name("<NUM_IMAGES>")->default_value(10), "number of images")
+        ("default,d", po::value<bool>(&useDefaultValues)->value_name("<USE_DEFUALT_VALUES>")->default_value(true), "use default values");   // (<long name>,<short name>, <argument(s)>, <description>)
 
     // creates the variables map and stores the inputs to the map
     po::variables_map vm;
@@ -80,12 +82,6 @@ int main(int argc, char* argv[])
             ++itr;
         }
         return EXIT_FAILURE;
-    }
-
-    // checks if the user does not provide any input
-    if (vm["snowflake"].defaulted() || vm["output"].defaulted() || vm["images"].defaulted())
-    {
-        std::cout << "At least one of the options is not specified! Will use the default values...\n";
     }
 
     // main programme
