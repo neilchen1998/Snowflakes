@@ -85,7 +85,7 @@ int main(int argc, char* argv[])
     }
 
     // main programme
-    bool canSave;
+    bool canSave = true;
     if (selectedSnowflake == "crystal")
     {
         // default values
@@ -95,10 +95,13 @@ int main(int argc, char* argv[])
         int radiusLow = 2;
 
         // gets inputs from the console
-        if(!GetUserInput(mean, "mean", 5, 55) || !GetUserInput(sd, "the standard deviation of the number of crystal", 0.0, 10.0) \
-            || !GetUserInput(radiusHigh, "the lower bound of the radius", 1, 10) || !GetUserInput(radiusLow, "the lower bound of the radius", 0, radiusHigh))
+        if (!useDefaultValues)
         {
-            return EXIT_FAILURE;
+            if(!GetUserInput(mean, "mean", 5, 55) || !GetUserInput(sd, "the standard deviation of the number of crystal", 0.0, 10.0) \
+            || !GetUserInput(radiusHigh, "the upper bound of the radius", 1, 10) || !GetUserInput(radiusLow, "the lower bound of the radius", 0, radiusHigh))
+            {
+                return EXIT_FAILURE;
+            }
         }
 
         // renders snowflakes
@@ -141,9 +144,12 @@ int main(int argc, char* argv[])
         double sd = 20.0;
 
         // gets inputs from the console
-        if(!GetUserInput(mean, "mean", 150, 300) || !GetUserInput(sd, "the standard deviation of the number of crystal", 0.0, 30.0))
+        if (!useDefaultValues)
         {
-            return EXIT_FAILURE;
+            if(!GetUserInput(mean, "mean", 150, 300) || !GetUserInput(sd, "the standard deviation of the number of crystal", 0.0, 30.0))
+            {
+                return EXIT_FAILURE;
+            }
         }
 
         // renders snowflakes
@@ -186,14 +192,17 @@ int main(int argc, char* argv[])
     else if (selectedSnowflake == "stellar-plate")
     {
         // default values
-        int motherSideMean = 330, sonSideMean = 80;
+        int motherSideMean = 100, sonSideMean = 40;
         double motherSideSD = 30.0, sonSideSD = 10.0;
 
         // gets inputs from the console
-        if(!GetUserInput(motherSideMean, "mean of the mother length", 150, 300) || !GetUserInput(motherSideSD, "the standard deviation of the mother length", 0.0, 30.0) || \
-        !GetUserInput(sonSideMean, "mean of the son length", 60, static_cast<int>(std::min(motherSideMean - 2 * motherSideSD, 100.0))) || !GetUserInput(sonSideSD, "the standard deviation of the son length", 0.0, 0.5 * sonSideMean))
+        if (!useDefaultValues)
         {
-            return EXIT_FAILURE;
+            if(!GetUserInput(motherSideMean, "mean of the mother length", 150, 300) || !GetUserInput(motherSideSD, "the standard deviation of the mother length", 0.0, 30.0) || \
+            !GetUserInput(sonSideMean, "mean of the son length", 60, static_cast<int>(std::min(motherSideMean - 2 * motherSideSD, 100.0))) || !GetUserInput(sonSideSD, "the standard deviation of the son length", 0.0, 0.5 * sonSideMean))
+            {
+                return EXIT_FAILURE;
+            }
         }
 
         // renders snowflakes
@@ -243,11 +252,14 @@ int main(int argc, char* argv[])
         double motherSideSD = 30.0, sonSideSD = 10.0, radiusSD = 10.0;
 
         // gets inputs from the console
-        if(!GetUserInput(motherSideMean, "mean of the mother length", 150, 300) || !GetUserInput(motherSideSD, "the standard deviation of the mother length", 0.0, 30.0) || \
-        !GetUserInput(sonSideMean, "mean of the son length", 60, static_cast<int>(std::min(motherSideMean - 2 * motherSideSD, 100.0))) || !GetUserInput(sonSideSD, "the standard deviation of the son length", 0.0, 0.5 * sonSideMean) || \
-        !GetUserInput(radiusMean, "mean of the radius", 20, 90) || !GetUserInput(sonSideSD, "the standard deviation of the radius", 0.0, 0.5 * radiusMean))
+        if (!useDefaultValues)
         {
-            return EXIT_FAILURE;
+            if(!GetUserInput(motherSideMean, "mean of the mother length", 150, 300) || !GetUserInput(motherSideSD, "the standard deviation of the mother length", 0.0, 30.0) || \
+            !GetUserInput(sonSideMean, "mean of the son length", 60, static_cast<int>(std::min(motherSideMean - 2 * motherSideSD, 100.0))) || !GetUserInput(sonSideSD, "the standard deviation of the son length", 0.0, 0.5 * sonSideMean) || \
+            !GetUserInput(radiusMean, "mean of the radius", 20, 90) || !GetUserInput(sonSideSD, "the standard deviation of the radius", 0.0, 0.5 * radiusMean))
+            {
+                return EXIT_FAILURE;
+            }
         }
 
         // renders snowflakes
