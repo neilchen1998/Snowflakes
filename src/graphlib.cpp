@@ -71,7 +71,7 @@ void DrawFern(cv::Mat& img, const Vector& v, const int armLength, const int armW
         // draw the branch
         Vector start = (i * nodeLength) * v;
         Vector end = alpha * branchLength * Vector::Rotate(v, theta) + start;
-        cv::line(img, cv::Point(start.x + CENTER, start.y + CENTER), cv::Point(end.x + CENTER, end.y + CENTER), WHITE, 5);
+        cv::line(img, cv::Point(start.x + CENTER, start.y + CENTER), cv::Point(end.x + CENTER, end.y + CENTER), WHITE, armWidth);
 
         // draw the mirrored branch
         end = Vector::Mirror(end, v);
@@ -101,13 +101,13 @@ void DrawRotatedCircles(cv::Mat& img, const std::vector<Circle>& circles, const 
     }
 }
 
-void DrawCrystalSnowflake(cv::Mat& img, const Vector& v, const int numCrystals, int radiusHigh, int radiusLow, const Vector& mirror)
+void DrawCrystalSnowflake(cv::Mat& img, const int numCrystals, int radiusHigh, int radiusLow, const Vector& mirror)
 {
     std::vector<Circle> circles(numCrystals * 2 * NUM_ARMS);
     circles[0].c = Vector(0, 0);
 
     // generates particles
-    for (size_t i = 1; i < numCrystals; i++)
+    for (int i = 1; i < numCrystals; i++)
     {
         Vector start = circles[i - 1].c;
         int radiusStart = circles[i - 1].radius;
@@ -168,7 +168,7 @@ void DrawHexagon(cv::Mat& img, const Vector& v, const int side, const Vector& of
     cv::fillPoly(img, pts, WHITE);
 }
 
-void DrawStellarPlateSnowflake(cv::Mat& img, const Vector& v, const Vector& w, const int motherSide, const int sonSide)
+void DrawStellarPlateSnowflake(cv::Mat& img, const Vector& v, const int motherSide, const int sonSide)
 {
     DrawHexagon(img, v, motherSide);
 

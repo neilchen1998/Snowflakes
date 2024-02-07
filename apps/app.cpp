@@ -24,7 +24,7 @@ namespace po = boost::program_options;
 #define PI 3.14159265
 #define DEG_TO_RAD(deg) ((deg) * PI / 180.0 )
 
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 
 int main(int argc, char* argv[])
 {
@@ -113,7 +113,7 @@ int main(int argc, char* argv[])
             int numCrystals = static_cast<int>(std::max(boost_normal_distribution(mean, sd), 10.0));    // makes sure the value is at least 10
             const Vector mirror(boost_normal_distribution(1, 0.1), boost_normal_distribution(1, 0.1));
 
-            DrawCrystalSnowflake(img, Vector(1, 1), numCrystals, radiusHigh, radiusLow, mirror);
+            DrawCrystalSnowflake(img, numCrystals, radiusHigh, radiusLow, mirror);
 
             const std::string snowflakeName("Crystal-Snowflake");
 
@@ -212,7 +212,6 @@ int main(int argc, char* argv[])
             cv::Mat img(ROWS, COLS, CV_8UC3, CV_RGB(0, 0, 0));
 
             const Vector v(boost_normal_distribution(1, 0.1), boost_normal_distribution(1, 0.1));
-            const Vector w(boost_normal_distribution(1, 0.1), boost_normal_distribution(1, 0.1));
 
             int motherSide = boost_normal_distribution(motherSideMean, motherSideSD);
             int sonSide = boost_normal_distribution(sonSideMean, sonSideSD);
@@ -220,7 +219,7 @@ int main(int argc, char* argv[])
             // makes sure motherSide is greater than sonSide
             motherSide = (motherSide <= sonSide) ? sonSide + 10 : motherSide;
 
-            DrawStellarPlateSnowflake(img, v.Unit(), w, motherSide, sonSide);
+            DrawStellarPlateSnowflake(img, v.Unit(), motherSide, sonSide);
 
             const std::string snowflakeName("Stellar-Plate-Snowflake");
 
@@ -248,14 +247,14 @@ int main(int argc, char* argv[])
     else if (selectedSnowflake == "triangular-crystal")
     {
         // default values
-        int motherSideMean = 330, sonSideMean = 80, radiusMean = 50;
-        double motherSideSD = 30.0, sonSideSD = 10.0, radiusSD = 10.0;
+        int motherSideMean = 280, sonSideMean = 60, radiusMean = 40;
+        double motherSideSD = 15.0, sonSideSD = 10.0, radiusSD = 5.0;
 
         // gets inputs from the console
         if (!useDefaultValues)
         {
-            if(!GetUserInput(motherSideMean, "mean of the mother length", 150, 300) || !GetUserInput(motherSideSD, "the standard deviation of the mother length", 0.0, 30.0) || \
-            !GetUserInput(sonSideMean, "mean of the son length", 60, static_cast<int>(std::min(motherSideMean - 2 * motherSideSD, 100.0))) || !GetUserInput(sonSideSD, "the standard deviation of the son length", 0.0, 0.5 * sonSideMean) || \
+            if(!GetUserInput(motherSideMean, "mean of the mother length", 180, 300) || !GetUserInput(motherSideSD, "the standard deviation of the mother length", 0.0, 25.0) || \
+            !GetUserInput(sonSideMean, "mean of the son length", 50, 60) || !GetUserInput(sonSideSD, "the standard deviation of the son length", 0.0, 10.0) || \
             !GetUserInput(radiusMean, "mean of the radius", 20, 90) || !GetUserInput(sonSideSD, "the standard deviation of the radius", 0.0, 0.5 * radiusMean))
             {
                 return EXIT_FAILURE;
@@ -274,8 +273,9 @@ int main(int argc, char* argv[])
             int sonTriangleR = boost_normal_distribution(sonSideMean, sonSideSD);
             int radius = boost_normal_distribution(radiusMean, radiusSD);
 
-            // makes sure motherSide is greater than sonSide
-            motherTriangleR = (motherTriangleR <= sonTriangleR) ? sonTriangleR + 100 : motherTriangleR;
+            // runs some aesthetic checks
+            sonTriangleR = (motherTriangleR >= 4 * sonTriangleR) ? 0.25 * motherTriangleR : sonTriangleR;
+            radius = (sonTriangleR >= 2 * radius) ? 0.5 * sonTriangleR -10 : radius;
 
             DrawTriangularCrystalSnowflake(img, v, motherTriangleR, sonTriangleR, radius);
 

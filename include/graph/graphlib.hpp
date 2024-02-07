@@ -60,9 +60,8 @@ void DrawRadiatingDendriteSnowflake(cv::Mat& img, const Vector& v, const int arm
 
 /// @brief Draw a Crystal snowflake
 /// @param img the canvas
-/// @param v the direction of the arm
 /// @param numCrystals the number of circles per arm
-void DrawCrystalSnowflake(cv::Mat& img, const Vector& v, const int numCrystals, int radiusHigh, int radiusLow, const Vector& mirror);
+void DrawCrystalSnowflake(cv::Mat& img, const int numCrystals, int radiusHigh, int radiusLow, const Vector& mirror);
 
 /// @brief Draw a hexagon
 /// @param img the canvas
@@ -74,10 +73,9 @@ void DrawHexagon(cv::Mat& img, const Vector& v, const int side, const Vector& of
 /// @brief Draw a Stellar Plate snowflake
 /// @param img the canvas
 /// @param v the direction of the mother hexagon
-/// @param w the direction of the son hexagon
 /// @param motherSide the lenght of the mother hexagon
 /// @param sonSide the length of the son hexagon
-void DrawStellarPlateSnowflake(cv::Mat& img, const Vector& v, const Vector& w, const int motherSide, const int sonSide);
+void DrawStellarPlateSnowflake(cv::Mat& img, const Vector& v, const int motherSide, const int sonSide);
 
 /// @brief Draw a Triangular Crystal snowflake
 /// @param img the canvas
