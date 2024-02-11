@@ -14,8 +14,13 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     # ensures -std=c++xx instead of -std=g++xx for protability purposes
     set(CMAKE_CXX_EXTENSIONS OFF)
 
+    # add profiling flags (gprof)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pg")
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -pg")
+
     # compiler flags
-    add_compile_options(-Wall -Wextra -pedantic -O3)
+    add_compile_options(-Wall -Wextra -pedantic -O3 -pg)
 
     # uses CTest
     # NOTE: this needs to be done in the main CMakeLists
